@@ -1,5 +1,5 @@
 // App.js
-import React from "react";
+import React, { Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import Themeroutes from "./routes/Router";
 import { UserProvider } from "./Usercontext";
