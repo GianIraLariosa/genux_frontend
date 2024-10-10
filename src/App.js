@@ -6,6 +6,9 @@ import { UserProvider } from "./Usercontext";
 import { EventProvider } from "./Eventcontext";
 import Login from "./views/Login";
 import OutsideLayout from "./layouts/OutsideLayout";
+import UserPage from "./views/User";
+import BpmnDiagram from "./layouts/Diagram_Editor";
+import FullLayout from "./layouts/FullLayout.js";
 
 const App = () => {
   // const routing = useRoutes(Themeroutes);
@@ -16,6 +19,9 @@ const App = () => {
           <Routes>
             <Route path="/" element={<OutsideLayout />}>
               <Route path="/login" element={<Login />} />
+            </Route>
+            <Route path="/" element={<FullLayout />}>
+              <Route path="/user" element={<BpmnDiagram />} />
             </Route>
           </Routes>
         </BrowserRouter>
