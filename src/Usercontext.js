@@ -4,11 +4,23 @@ import { createContext, useState } from 'react';
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const [user_id, setUser_id] = useState('');
-  const [organizer_id, setOrg_id] = useState('');
+  // Initialize user state from localStorage
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
+  // Update localStorage whenever user state changes
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('user'); // Clear user on logout
+    }
+  }, [user]);
 
   return (
-    <UserContext.Provider value={{ user_id, setUser_id, organizer_id, setOrg_id }}>
+    <UserContext.Provider value={{ user_id, setUser_id }}>
       {children}
     </UserContext.Provider>
   );
