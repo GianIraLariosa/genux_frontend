@@ -12,7 +12,9 @@ const App = () => {
       <EventProvider>
         <UserProvider>
           <div className="dark">
-            {routing}
+            <Suspense fallback={<div>Loading...</div>}>
+              {routing}
+            </Suspense>
           </div>
         </UserProvider>
       </EventProvider>
