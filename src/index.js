@@ -6,15 +6,18 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { HashRouter } from "react-router-dom";
 import Loader from "./layouts/loader/Loader";
+import { UserProvider } from "./Usercontext";
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 
 root.render(
   <Suspense fallback={<Loader />}>
-    <HashRouter>
+    <UserProvider>
       <App />
-    </HashRouter>
+    </UserProvider>
+    {/* <HashRouter> */}
+    {/* </HashRouter> */}
   </Suspense>,
 
   // document.getElementById("root")

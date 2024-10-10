@@ -20,7 +20,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const {user_id, setUser_id } = useContext(UserContext);
+  const { setUser_id, user_id } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {

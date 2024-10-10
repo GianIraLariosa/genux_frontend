@@ -8,25 +8,18 @@ import Login from "./views/Login";
 import OutsideLayout from "./layouts/OutsideLayout";
 
 const App = () => {
-  const routing = useRoutes(Themeroutes);
+  // const routing = useRoutes(Themeroutes);
 
   return (
-      <EventProvider>
-        <UserProvider>
-          <BrowserRouter>
-          <div className="dark">
-            {/* <Suspense fallback={<div>Loading...</div>}>
-              {routing}
-            </Suspense> */}
-            <Routes>
-              <Route path="/" element={<OutsideLayout />}>
-                <Route path="/login" element={<Login />} />
-              </Route>
-            </Routes>
-          </div>
-          </BrowserRouter>
-        </UserProvider>
-      </EventProvider>
+      <div>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<OutsideLayout />}>
+              <Route path="/login" element={<Login />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
   );
 };
 

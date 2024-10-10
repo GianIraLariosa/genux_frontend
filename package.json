@@ -36,7 +36,6 @@
     "react-icons": "^5.0.1",
     "react-konva": "^18.2.10",
     "react-loading-indicators": "^1.0.0",
-    "react-router-dom": "6.12.1",
     "reactstrap": "9.1.10",
     "sass": "1.63.2",
     "starter-bt5": "file:",
@@ -69,6 +68,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-private-property-in-object": "7.22.5",
+    "react-router-dom": "^6.26.2",
     "react-scripts": "^5.0.1"
   },
   "overrides": {
