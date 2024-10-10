@@ -34,7 +34,7 @@ const Login = () => {
       const { data: user } = await axios.post('https://genux-backend-9f3x.onrender.com/login', postData);
       setUser_id(user.id);
       console.log(user_id);
-      navigate(`/user`);
+      navigate("user");
     } catch (error) {
         setMessage("Invalid username or password.");
     }
