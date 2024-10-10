@@ -17,12 +17,12 @@ const App = () => {
       <div>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<OutsideLayout />}>
+            <Route element={<OutsideLayout />}>
               <Route path="/login" element={<Login />} />
             </Route>
-            {/* <Route element={<FullLayout />}> */}
+            <Route element={<FullLayout />}>
               <Route path="/user" element={<BpmnDiagram />} />
-            {/* </Route> */}
+            </Route>
           </Routes>
         </BrowserRouter>
       </div>
