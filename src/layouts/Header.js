@@ -45,6 +45,11 @@ const Header = () => {
     }
   };
 
+  const handlelogout = () => {
+    setUser_id(null);
+    navigate("/login");
+  }
+
   const toggle = () => setIsOpen((prevState) => !prevState);
   const showMobilemenu = () =>
     document.getElementById("sidebarArea").classList.toggle("showSidebar");
@@ -69,7 +74,7 @@ const Header = () => {
             </Link>
           </NavItem>
           <NavItem>
-            <Link to="/login" className="nav-link">
+            <Link className="nav-link" onClick={handlelogout}>
               Logout
             </Link>
           </NavItem>
