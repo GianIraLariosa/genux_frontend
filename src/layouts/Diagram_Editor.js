@@ -98,6 +98,7 @@ const BpmnDiagram = () => {
       const response = await result.response;
       const generatedText = await response.text();
       const endoutput = parseTextToPlantUML(generatedText);
+      console.log(endoutput);
       
       const newResponse = await axios.post('http://localhost:4000/api/generate-plantuml', { script: endoutput });
       const imageUrl = newResponse.data.imageUrl;
