@@ -1,23 +1,23 @@
 // UserContext.js
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   // Initialize user state from localStorage
-  const [user, setUser] = useState(() => {
+  const [user_id, setUser_id] = useState(() => {
     const savedUser = localStorage.getItem('user');
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
   // Update localStorage whenever user state changes
   useEffect(() => {
-    if (user) {
-      localStorage.setItem('user', JSON.stringify(user));
+    if (user_id) {
+      localStorage.setItem('user', JSON.stringify(user_id));
     } else {
       localStorage.removeItem('user'); // Clear user on logout
     }
-  }, [user]);
+  }, [user_id]);
 
   return (
     <UserContext.Provider value={{ user_id, setUser_id }}>
