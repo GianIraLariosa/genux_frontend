@@ -15,7 +15,7 @@ const Dashboard = () => {
 
   const fetchDiagrams = () => {
     if (user_id) {
-      axios.get(`/diagrams/${user_id}`)
+      axios.get(`https://genux-backend-9f3x.onrender.com/diagrams/${user_id}`)
         .then(response => {
           console.log(response.data);
           setDiagrams(response.data);
@@ -30,7 +30,7 @@ const Dashboard = () => {
 
   const fetchWireframes = () => {
     if (user_id) {
-      axios.get(`/wireframes/${user_id}`)  
+      axios.get(`https://genux-backend-9f3x.onrender.com/wireframes/${user_id}`)  
         .then(response => {
           console.log(response.data);
           setWireframes(response.data);
@@ -43,8 +43,8 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    // fetchDiagrams();
-    // fetchWireframes();  
+    fetchDiagrams();
+    fetchWireframes();  
   }, [user_id]);
 
   const refreshDashboard = () => {
