@@ -20,7 +20,7 @@ const App = () => {
             <Route path="/" element={<OutsideLayout />}>
               <Route path="/login" element={<Login />} />
             </Route>
-            <Route path="/" element={<FullLayout />}>
+            <Route element={<FullLayout />}>
               <Route path="/user" element={<BpmnDiagram />} />
             </Route>
           </Routes>
