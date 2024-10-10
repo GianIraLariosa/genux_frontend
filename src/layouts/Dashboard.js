@@ -43,8 +43,8 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    fetchDiagrams();
-    fetchWireframes();  
+    // fetchDiagrams();
+    // fetchWireframes();  
   }, [user_id]);
 
   const refreshDashboard = () => {

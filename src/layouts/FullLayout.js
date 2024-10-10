@@ -9,7 +9,7 @@ const FullLayout = () => {
         <Header /> {/* The header spans the full width of the page */}
         <div className="contentArea">
           <aside className="sidebarArea shadow" id="sidebarArea">
-            {/* <Dashboard /> */}
+            <Dashboard />
           </aside>
           <div className="diagramArea">
             {/* <Experiment/> */}
