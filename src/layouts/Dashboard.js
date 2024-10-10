@@ -53,7 +53,7 @@ const Dashboard = () => {
   };
 
   const handleDiagramClick = (diagram) => {
-    navigate('/diagram-editor', { state: { diagram } });
+    navigate('/user', { state: { diagram } });
   };
 
   const handleWireframeClick = (wireframe) => {
