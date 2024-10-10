@@ -47,7 +47,6 @@ const Header = () => {
 
   const handlelogout = () => {
     setUser_id(null);
-    navigate("/login");
   }
 
   const toggle = () => setIsOpen((prevState) => !prevState);
@@ -74,7 +73,7 @@ const Header = () => {
             </Link>
           </NavItem>
           <NavItem>
-            <Link className="nav-link" onClick={handlelogout}>
+            <Link to= '/login' className="nav-link" onClick={handlelogout}>
               Logout
             </Link>
           </NavItem>
