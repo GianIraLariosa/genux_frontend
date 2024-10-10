@@ -1,0 +1,32 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px; // Consistent height for the header
+    padding: 0 20px;
+    background-color: #D1E9F6; // Define your primary color
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); // Optional shadow for depth
+  }
+  
+  .navbar-nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    color: white; // Text color
+    text-decoration: none;
+    &:hover {
+      color: $hoverColor; // Define a hover color
+    }
+  }
+  
+  img.rounded-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  

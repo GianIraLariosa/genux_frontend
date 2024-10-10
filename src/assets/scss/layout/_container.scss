@@ -1,0 +1,128 @@
+.pageWrapper {
+  display: flex;
+  flex-direction: column; // Header at the top, content below
+  height: 100vh; // Full viewport height
+  background-color: #ffffff;
+}
+
+.contentArea {
+  flex-grow: 1; /* Make this area take up the remaining space */
+  overflow: auto; /* Ensure content is scrollable if it overflows */
+  height: calc(100vh - 60px); /* Subtract the header height */
+  display: flex;
+}
+.editorContainer {
+  display: flex;
+  height: 100vh; // Make it span the full viewport height
+}
+
+.sidebarArea {
+  flex-shrink: 0;
+  border-right: 1px solid black;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  background-color: #f5f5f5;
+  .sidenav-bg:hover {
+    background-color: $gray-100;
+    border-radius: $border-radius;
+  }
+}
+
+.diagramArea {
+  flex-grow: 1; // This will make the diagram area take the remaining space
+  background-color: #f5f5f5; // Example background color for the diagram area
+  padding: 20px; // Add some padding if needed
+}
+
+@include media-breakpoint-down(lg) {
+  .sidebarArea {
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    z-index: 1;
+    margin-left: -250px; // Adjust this according to your sidebar width
+    transition: 0.2s ease-in;
+    &.showSidebar {
+      margin-left: 0px;
+    }
+  }
+}
+
+.button {
+  background-color: #41C9E2;
+  width: 90%; // Set width to 80% of the parent element's width
+  color: #F7EEDD;
+  padding: 8px 20px;
+  border-radius: 4px;
+  border: none;
+  margin-top: 20px;
+  cursor: pointer;
+  display: block; // Ensures the button behaves as a block element for full width
+  text-align: center; // Center the text within the button
+}
+
+.button2 {
+  background-color: #41C9E2;
+  width: 100px; // Set width to 80% of the parent element's width
+  color: #F7EEDD;
+  padding: 8px 20px;
+  border-radius: 4px;
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
+  text-align: center; // Center the text within the button
+  margin-left: 10px;
+}
+
+.dashboard-list {
+  width: 100%; /* Ensure the list takes up the full width */
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.dashboard-list li {
+  width: 100%; /* Ensure list items take up the full width */
+  margin-bottom: 10px; /* Add space between list items */
+}
+
+.dashboard-button {
+  background-color: #41C9E2;
+  width: 100%; /* Set the button to 100% of its parent's width */
+  color: #F7EEDD;
+  padding: 5px 20px; /* Adjust padding for better spacing */
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  text-align: center; /* Center the text within the button */
+  display: block; /* Make the button behave like a block element to take full width */
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+.close-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
