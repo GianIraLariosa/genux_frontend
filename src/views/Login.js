@@ -31,7 +31,7 @@ const Login = () => {
     }
 
     try {
-      const { data: user } = await axios.post('http://localhost:4000/login', postData);
+      const { data: user } = await axios.post('https://genux-backend-9f3x.onrender.com/login', postData);
       setUser_id(user.id);
       console.log(user_id);
       navigate(`/user`);
