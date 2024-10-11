@@ -26,7 +26,7 @@ const GenerateResult = () => {
         title: wireframeTitle,
       };
       console.log('Saving data:', saveData);
-      const response = await axios.post('http://localhost:4000/wireframe', saveData);
+      const response = await axios.post('https://genux-backend-9f3x.onrender.com/wireframe', saveData);
     
         navigate('/diagram-editor');
     } catch (error) {

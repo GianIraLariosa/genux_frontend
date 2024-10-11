@@ -74,33 +74,55 @@ const BpmnDiagram = () => {
 
       //prepare the api call
       const genAI = new GoogleGenerativeAI(API_Key);
-      const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-exp-0827' });
 
       //set the current info from the one created
       setgenerateInfo(generateInfo);
 
       //prompt generation
+      // const prompt = `
+      //     Give me the user experience given this activity Diagram for an app:
+      //     Activity Diagram:
+      //     ${plantUML}
+
+      //     First list the screens of the app.
+      //     "Screens:"
+
+      //     Second use the screens to make connections for possible user interactions.
+      //     Use arrows with the description inbetween them for these connections.
+      //     Use this format:
+      //     <Screen X> --> <Screen Y> : <Description>
+      //     "Connections:"
+      // `;
+
       const prompt = `
-          Give me the user experience given this activity Diagram for an app:
-          Activity Diagram:
           ${plantUML}
 
-          First list the screens of the app.
-          "Screens:"
+          Using this plantuml activity diagram
+          Make a plantuml state diagram that has the individual pages and have each page have another state diagram about the various elements that are interacted by the user. Disregard any process that is done by the system, focus on the User Experience.
+          Make sure to follow the output:
+          @startuml
+          [*] --> LoginPage
 
-          Second use the screens to make connections for possible user interactions.
-          Use arrows with the description inbetween them for these connections.
-          Use this format:
-          <Screen X> --> <Screen Y> : <Description>
-          "Connections:"
+          state LoginPage {
+            [*] --> UsernameTextfield
+            UsernameTextfield : User enters username
+            UsernameTextfield --> PasswordTextfield : Clicks Textfield
+            PasswordTextfield : User enters password
+            PasswordTextfield --> LoginButton : Clicks button
+            LoginButton : User clicks button
+          }
+          @enduml
       `;
+
+
       const result = await model.generateContent(prompt);
       const response = await result.response;
       const generatedText = await response.text();
-      const endoutput = parseTextToPlantUML(generatedText);
-      console.log(endoutput);
+      // const endoutput = parseTextToPlantUML(generatedText);
+      console.log(generatedText);
       
-      const newResponse = await axios.post('https://genux-backend-9f3x.onrender.com/api/generate-plantuml', { script: endoutput });
+      const newResponse = await axios.post('https://genux-backend-9f3x.onrender.com/api/generate-plantuml', { script: generatedText });
       const imageUrl = newResponse.data.imageUrl;
       navigate('/PlantUMLResult', { state: { imageUrl } });
 
