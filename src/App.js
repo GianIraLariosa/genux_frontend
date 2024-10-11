@@ -9,7 +9,10 @@ import UserPage from "./views/User";
 import BpmnDiagram from "./layouts/Diagram_Editor";
 import FullLayout from "./layouts/FullLayout.js";
 import ProtectedRoute from "./ProtectedRoute.js";
+import NoSidebarLayout from "./layouts/NoSidebarLayout.js";
 import { UserContext } from "./Usercontext.js";
+import GenerateResult from "./assets/UtilityComponents/GenerateResult.js";
+import Result from "./views/Result.js";
 
 const App = () => {
   // const routing = useRoutes(Themeroutes);
@@ -41,6 +44,17 @@ const App = () => {
                   <FullLayout>
                     <BpmnDiagram />
                   </FullLayout>
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/PlantUMLResult"
+              element={
+                <ProtectedRoute>
+                  {/* <NoSidebarLayout> */}
+                    <GenerateResult />
+                  {/* </NoSidebarLayout> */}
                 </ProtectedRoute>
               }
             />
