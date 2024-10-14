@@ -100,6 +100,7 @@ const BpmnDiagram = () => {
 
           Using this plantuml activity diagram
           Make a plantuml state diagram that has the individual pages and have each page have another state diagram about the various elements that are interacted by the user. Disregard any process that is done by the system, focus on the User Experience.
+          OUTPUT ONLY THE PLANTUML SCRIPT!
           Make sure to follow the output:
           @startuml
           [*] --> LoginPage
