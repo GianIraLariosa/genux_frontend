@@ -27,8 +27,43 @@ const GenerateResult = () => {
       };
       console.log('Saving data:', saveData);
       const response = await axios.post('https://genux-backend-9f3x.onrender.com/wireframe', saveData);
-    
-        navigate('/user');
+      navigate('/user');
+    } catch (error) {
+      console.error("Error while saving UX wireframe:", error);
+    }
+  };
+
+  const handleSaveLocal = async () => {
+    try {
+      // Fetch the image data from the imageUrl
+      const response = await axios.get(imageUrl, {
+        responseType: 'blob' // Get the image as a blob
+      });
+  
+      // Create a Blob from the response
+      const blob = new Blob([response.data], { type: 'image/png' });
+  
+      // Create a temporary download link
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+  
+      // Set the download attribute (filename)
+      link.download = `${wireframeTitle || 'generated-diagram'}.png`;
+  
+      // Append the link to the body (required for Firefox)
+      document.body.appendChild(link);
+  
+      // Trigger the download
+      link.click();
+  
+      // Remove the link from the DOM after downloading
+      document.body.removeChild(link);
+  
+      console.log('Image saved locally.');
+      
+      // Navigate to another page after the save
+      navigate('/user');
     } catch (error) {
       console.error("Error while saving UX wireframe:", error);
     }
@@ -56,6 +91,9 @@ const GenerateResult = () => {
       <div style={styles.buttonContainer}>
         <button onClick={() => navigate(-1)} style={styles.button}>
           Go Back
+        </button>
+        <button onClick={handleSaveLocal} style={styles.saveButton}>
+          Save Locally
         </button>
         <button onClick={handleSaveWireframe} style={styles.saveButton}>
           Save UX
