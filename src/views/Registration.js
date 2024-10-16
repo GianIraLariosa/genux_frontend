@@ -28,7 +28,7 @@ const Registration = () => {
       password: password,
     }
 
-    await axios.post('http://localhost:4000/registration', postData)
+    await axios.post('https://genux-backend-9f3x.onrender.com/registration', postData)
     .then(res => setMessage(<p>{res.data}</p>))
   }
 
