@@ -36,7 +36,7 @@ const GenerateResult = () => {
 
   return (
     <div style={styles.container}>
-      <Header />
+      {/* <Header /> */}
       <h2 style={styles.title}>Generated State Diagram</h2>
       <div>
       <input 
