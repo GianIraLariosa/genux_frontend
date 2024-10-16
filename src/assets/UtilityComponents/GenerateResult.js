@@ -27,8 +27,7 @@ const GenerateResult = () => {
       };
       console.log('Saving data:', saveData);
       const response = await axios.post('https://genux-backend-9f3x.onrender.com/wireframe', saveData);
-    
-        navigate('/user');
+      navigate('/user');
     } catch (error) {
       console.error("Error while saving UX wireframe:", error);
     }
@@ -72,7 +71,7 @@ const GenerateResult = () => {
 
   return (
     <div style={styles.container}>
-      <Header />
+      {/* <Header /> */}
       <h2 style={styles.title}>Generated State Diagram</h2>
       <div>
       <input 

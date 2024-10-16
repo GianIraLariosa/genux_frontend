@@ -61,27 +61,20 @@ function Result() {
             const response = await axios.get('https://genux-backend-9f3x.onrender.com/get-generated-image', {
               responseType: 'blob' // Get the image as a blob
             });
-      
             // Create a Blob from the response
             const blob = new Blob([response.data], { type: 'image/png' });
-      
             // Create a temporary download link
             const downloadUrl = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = downloadUrl;
-      
             // Set the download attribute (filename)
             link.download = 'generated-diagram.png';
-      
             // Append the link to the body (required for Firefox)
             document.body.appendChild(link);
-      
             // Trigger the download
             link.click();
-      
             // Remove the link from the DOM after downloading
             document.body.removeChild(link);
-      
             console.log('Image saved locally.');
           }
         } catch (error) {
@@ -112,7 +105,6 @@ const buttonStyle = {
   cursor: "pointer",
   marginTop: "20px" 
 };
-
 
 const outerContainerStyle = {
   display: 'flex',
