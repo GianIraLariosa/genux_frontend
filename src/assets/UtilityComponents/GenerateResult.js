@@ -15,7 +15,7 @@ const GenerateResult = () => {
 
   <Routes>
     {/* Other routes */}
-    <Route path="/diagram-editor" element={<DiagramEditor />} />
+    <Route path="/user" element={<DiagramEditor />} />
   </Routes>
 
   const handleSaveWireframe = async () => {
@@ -28,7 +28,7 @@ const GenerateResult = () => {
       console.log('Saving data:', saveData);
       const response = await axios.post('https://genux-backend-9f3x.onrender.com/wireframe', saveData);
     
-        navigate('/diagram-editor');
+        navigate('/user');
     } catch (error) {
       console.error("Error while saving UX wireframe:", error);
     }
