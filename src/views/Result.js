@@ -42,7 +42,7 @@ function Result() {
     try {
       for (const html of htmls) {
         console.log(user_id);
-        await axios.post('http://localhost:4000/wireframe', {
+        await axios.post('https://genux-backend-9f3x.onrender.com/wireframe', {
           user_id: user_id,
           htmlCode: html
         });
