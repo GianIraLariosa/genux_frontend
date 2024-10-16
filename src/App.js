@@ -13,6 +13,7 @@ import NoSidebarLayout from "./layouts/NoSidebarLayout.js";
 import { UserContext } from "./Usercontext.js";
 import GenerateResult from "./assets/UtilityComponents/GenerateResult.js";
 import Result from "./views/Result.js";
+import Registration from "./views/Registration.js";
 
 const App = () => {
   // const routing = useRoutes(Themeroutes);
@@ -34,6 +35,7 @@ const App = () => {
             {/* Layout for routes that are accessible without login */}
             <Route element={<OutsideLayout />}>
               <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Registration />} />
             </Route>
             
             {/* Layout for routes that require login */}

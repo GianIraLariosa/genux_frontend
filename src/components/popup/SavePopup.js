@@ -24,7 +24,7 @@ const SavePopup = ({ onClose, onSubmit, info }) => {
     try {
       diagramInfo = info;
       console.log(`Diagram Name: ${diagramInfo.name}\nUser ID: ${diagramInfo.userId}\nData: ${JSON.stringify(diagramInfo.bpmn)}\n`);
-      const response = await fetch('/save-diagram', {
+      const response = await fetch('https://genux-backend-9f3x.onrender.com/save-diagram', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

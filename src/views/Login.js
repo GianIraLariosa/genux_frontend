@@ -88,7 +88,7 @@ const Login = () => {
                 <p style={normalLinkStyle}>
                   Don't have an account?
                 </p>
-                <a href="/#/register" style={linkStyle}>
+                <a href="/register" style={linkStyle}>
                   Register Now!
                 </a>
               </div>

@@ -100,6 +100,7 @@ const BpmnDiagram = () => {
 
           Using this plantuml activity diagram
           Make a plantuml state diagram that has the individual pages and have each page have another state diagram about the various elements that are interacted by the user. Disregard any process that is done by the system, focus on the User Experience.
+          OUTPUT ONLY THE PLANTUML SCRIPT, DONT PUT ANY ESCAPE SEQUENCES JUST PURE SCRIPT!
           Make sure to follow the output:
           @startuml
           [*] --> LoginPage
@@ -138,6 +139,18 @@ const BpmnDiagram = () => {
       }
     } finally {
       setGenerating(false);
+    }
+  };
+
+  const handleNewDiagram = async () => {
+    const response = await fetch('empty_bpmn.bpmn');
+    const diagram = await response.text();
+    try {
+      await modeler.current.importXML(diagram);
+      const canvas = modeler.current.get('canvas');
+      canvas.zoom('fit-viewport');
+    } catch (err) {
+      console.error('Error importing diagram:', err);
     }
   };
 
@@ -261,9 +274,7 @@ const BpmnDiagram = () => {
       <br/>
       <div className="d-flex align-items-center">
         <LoadingModal loading={generating} />
-        {/* <button onClick={() => GenerateComponent(modeler, user_id, setgenerateInfo)}>
-          Generate UX
-        </button> */}
+        <button onClick={handleNewDiagram} style={buttonStyle}>New Diagram</button> 
         <button onClick={handleGenerate} style={buttonStyle}>Generate UX</button> 
         <ImportDiagram onFileSelect={handleFileSelect} />
         <img
@@ -296,6 +307,8 @@ const buttonStyle = {
   borderRadius: "4px",
   border: "none",
   cursor: "pointer",
+  marginRight: "10px", // Adds space between buttons
 };
+
 
 export default BpmnDiagram;
