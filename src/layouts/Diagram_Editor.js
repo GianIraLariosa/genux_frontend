@@ -18,6 +18,7 @@ import axios from 'axios';
 import { Atom } from 'react-loading-indicators';
 import LoadingModal from '../components/popup/LoadingModal';
 import { LoadingIndicator } from 'react-loading-indicators';
+import MonacoEditor from '@monaco-editor/react';
 
 
 const BpmnDiagram = () => {
@@ -36,6 +37,12 @@ const BpmnDiagram = () => {
   const { user_id } = useContext(UserContext); 
   const [imageUrl, setImageUrl] = useState('');
   const navigate = useNavigate();
+  const [code, setCode] = useState(`@startuml\nAlice -> Bob: Hello!\n@enduml`);
+  
+
+  const handleEditorChange = (value) => {
+      setCode(value);
+    };
 
   const openDiagram = async () => {
     const response = await fetch('empty_bpmn.bpmn');
@@ -75,25 +82,7 @@ const BpmnDiagram = () => {
       //prepare the api call
       const genAI = new GoogleGenerativeAI(API_Key);
       const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-exp-0827' });
-
-      //set the current info from the one created
       setgenerateInfo(generateInfo);
-
-      //prompt generation
-      // const prompt = `
-      //     Give me the user experience given this activity Diagram for an app:
-      //     Activity Diagram:
-      //     ${plantUML}
-
-      //     First list the screens of the app.
-      //     "Screens:"
-
-      //     Second use the screens to make connections for possible user interactions.
-      //     Use arrows with the description inbetween them for these connections.
-      //     Use this format:
-      //     <Screen X> --> <Screen Y> : <Description>
-      //     "Connections:"
-      // `;
 
       const prompt = `
           ${plantUML}
@@ -156,54 +145,6 @@ const BpmnDiagram = () => {
       console.error('Error importing diagram:', err);
     }
   };
-
-  // const saveDiagram = async () => {
-  //   try {
-  //     const { xml } = await modeler.current.saveXML({ format: true });
-
-      
-
-  //     // modeler.current.destroy();
-
-
-  //     // modeler.current = new BpmnJS({
-  //     //   container: '#canvas',
-  //     //   keyboard: { bindTo: window },
-  //     // });
-
-  //     // openDiagram();
-  //     console.log(`Diagram Name: ${diagramName}`);
-  //     console.log(`user_id: ${user_id}`);
-
-  //     console.log(xml);
-
-  //     // You can now save the XML string to a file or send it to a server
-
-  //     const data1 = {
-  //       userId: user_id, 
-  //       name: diagramName,
-  //       bpmn: xml
-  //     };
-  
-  //     // Send the data to your backend
-  //     const response = await fetch('/save-diagram', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify(data1)
-  //     });
-  
-  //     if (response.ok) {
-  //       console.log('Diagram saved successfully!');
-  //     } else {
-  //       console.error('Failed to save diagram');
-  //     }
-  //   } catch (err) {
-  //     console.error('Could not save BPMN diagram:', err);
-  //   }
-  // };
-  
 
   useEffect(() => {
     modeler.current = new BpmnJS({
@@ -273,7 +214,7 @@ const BpmnDiagram = () => {
       {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '10px', marginBottom: '10px', position: 'relative' }}>
         Additional buttons can be placed here
       </div> */}
-      <div id="canvas" style={{ width: '100%', height: height, border: '1px solid black' }}></div>
+      <div id="canvas" style={{ width: '100%', height: '80vh', border: '1px solid black' }}></div>
       <br/>
       <div className="d-flex align-items-center">
         <LoadingModal loading={generating} />
@@ -300,6 +241,16 @@ const BpmnDiagram = () => {
         )}
         {/* <img src={imageUrl} alt="Generated PlantUML Diagram" /> */}
       </div>
+      <div>
+          <MonacoEditor
+            height="300px"
+            width="500px"
+            defaultLanguage="plaintext" // adjust based on your syntax highlighting needs
+            defaultValue={code}
+            onChange={handleEditorChange}
+            options={{ fontSize: 14, minimap: { enabled: false } }}
+          />
+        </div>
     </div>
   );
 };
