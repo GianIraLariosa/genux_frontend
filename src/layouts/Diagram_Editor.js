@@ -18,7 +18,7 @@ import axios from 'axios';
 import { Atom } from 'react-loading-indicators';
 import LoadingModal from '../components/popup/LoadingModal';
 import { LoadingIndicator } from 'react-loading-indicators';
-import MonacoEditor from '@monaco-editor/react';
+
 
 
 const BpmnDiagram = () => {
@@ -37,12 +37,7 @@ const BpmnDiagram = () => {
   const { user_id } = useContext(UserContext); 
   const [imageUrl, setImageUrl] = useState('');
   const navigate = useNavigate();
-  const [code, setCode] = useState(`@startuml\nAlice -> Bob: Hello!\n@enduml`);
   
-
-  const handleEditorChange = (value) => {
-      setCode(value);
-    };
 
   const openDiagram = async () => {
     const response = await fetch('empty_bpmn.bpmn');
@@ -241,16 +236,7 @@ const BpmnDiagram = () => {
         )}
         {/* <img src={imageUrl} alt="Generated PlantUML Diagram" /> */}
       </div>
-      <div>
-          <MonacoEditor
-            height="300px"
-            width="500px"
-            defaultLanguage="plaintext" // adjust based on your syntax highlighting needs
-            defaultValue={code}
-            onChange={handleEditorChange}
-            options={{ fontSize: 14, minimap: { enabled: false } }}
-          />
-        </div>
+      
     </div>
   );
 };
