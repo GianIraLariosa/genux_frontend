@@ -98,13 +98,9 @@ const BpmnDiagram = () => {
       const prompt = `
           ${plantUML}
 
-          Using this plantuml activity diagram
-          Make a plantuml state diagram that has the individual pages and have each page have another state diagram about 
-          the various elements that are interacted by the user.
-          Disregard any process that is done by the system, focus on the User Experience.
-          DO NOT USE DUPLICATE VARIABLE NAMES!
-          OUTPUT ONLY THE PLANTUML SCRIPT!
-          Make sure to follow the output:
+          Using the given PlantUML activity diagram, create a corresponding state diagram that represents the user experience (UX) on individual pages. For each page, generate a nested state diagram that details the various elements the user interacts with. Exclude any processes performed by the system—focus solely on user actions and interactions. Ensure that all variable names are unique (no duplicates).
+
+          The output should follow the structure below:
           @startuml
           [*] --> LoginPage
 
@@ -117,6 +113,9 @@ const BpmnDiagram = () => {
             LoginButton : User clicks button
           }
           @enduml
+
+
+          Please output only the PlantUML script.
       `;
 
 
