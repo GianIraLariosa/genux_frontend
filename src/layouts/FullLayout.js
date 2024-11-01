@@ -16,6 +16,7 @@ const FullLayout = () => {
     try{
       const newResponse = await axios.post('https://genux-backend-9f3x.onrender.com/api/generate-plantuml', { script: code });
       const imageUrl = newResponse.data.imageUrl;
+      setImageUrl(imageUrl);
     } catch(err) {
       console.log("error", err);
 
