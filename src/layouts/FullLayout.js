@@ -1,35 +1,46 @@
-import React, { useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Dashboard from "./Dashboard";
 import BpmnDiagram from "./Diagram_Editor";
 import Header from "./Header";
 import toggleIcon from "../assets/images/buttons/arrow.png";
 import MonacoEditor from '@monaco-editor/react';
 import axios from "axios";
+import parseXML from '../assets/UtilityComponents/ParseXMLComponent';
+import translateToPlantUML from '../assets/UtilityComponents/TranslateUMLComponent';
+import { UserContext } from "../Usercontext";
+import { generateUX } from "./generateUX";
 
 const FullLayout = () => {
   const [isDashboardVisible, setIsDashboardVisible] = useState(false);
   const rotation = isDashboardVisible ? 180 : 0;
   const [code, setCode] = useState(`@startuml\nAlice -> Bob: Hello!\n@enduml`);
   const [imageUrl, setImageUrl] = useState('');
+  const bpmnRef = useRef(null);
+  const [generateInfo, setgenerateInfo] = useState(null);
+  const { user_id } = useContext(UserContext);
+  const [generating, setGenerating] = useState(false);
   
-  const generateUX = async ( retryCount = 3 ) => {
-    try{
-      const newResponse = await axios.post('https://genux-backend-9f3x.onrender.com/api/generate-plantuml', { script: code });
-      const imageUrl = newResponse.data.imageUrl;
-      setImageUrl(imageUrl);
-    } catch(err) {
-      console.log("error", err);
+  const generateUX_button = async () => {
+      if(bpmnRef.current) {
+       const xml = await bpmnRef.current.getXML();
+      //  const xml = modeler.PromiseResult;
+      //  console.log(modeler);
+       const generated_text = await generateUX({
+          setgenerateInfo,
+          user_id,
+          setGenerating,
+          xml,
+          retryCount: 3,
+        });
 
-      // Retry logic: retryCount controls how many times to retry before giving up
-      if (retryCount > 0) {
-        console.log(`Retrying... Attempts left: ${retryCount - 1}`);
-        await generateUX(retryCount - 1);  // Recursive call with a decremented retryCount
-      } else {
-        console.error("Max retry attempts reached. Failed to generate UX.");
+        // const data = parseXML(xml);
+        // const plantUML = translateToPlantUML(data);
+        setCode(generated_text);
+        console.log(generated_text);
+        const newResponse = await axios.post('https://genux-backend-9f3x.onrender.com/api/generate-plantuml', { script: generated_text });
+        const imageUrl = newResponse.data.imageUrl;
+        setImageUrl(imageUrl);
       }
-    } finally {
-      //setGenerating(false);
-    }
   };
 
   const handleEditorChange = (value) => {
@@ -48,6 +59,7 @@ const FullLayout = () => {
     <main>
       <div className="pageWrapper d-lg-flex">
         <Header />
+        {/* <LoadingModal loading={generating} /> */}
         <div className="contentArea">
           <div style={contentAreaStyle}>
             <img
@@ -73,15 +85,22 @@ const FullLayout = () => {
             )}
 
             <div className="diagramArea">
-              <BpmnDiagram />
+              <BpmnDiagram ref={bpmnRef} />
             </div>
 
-            <div style={{ border: '1px solid black', display: 'inline-block' }}>
+            <button onClick={generateUX_button} style={styles.button}>Generate UX</button> 
+
+            <div className="diagramArea" style={{ border: '1px solid black', 
+              width: '20%', 
+              height: '80vh', 
+              margin: '20px', 
+              display: 'block',
+              }}>
             <MonacoEditor
               height="300px"
               width="450px"
               defaultLanguage="plaintext"
-              defaultValue={code}
+              value={code}
               onChange={handleEditorChange}
               options={{ fontSize: 14, minimap: { enabled: false } }}
             />
@@ -91,7 +110,6 @@ const FullLayout = () => {
             ) : (
               <p style={styles.loadingText}>Loading diagram...</p>
             )}
-            <button onClick={generateUX} style={styles.button}>Generate UX</button> 
           </div>
         </div>
       </div>
@@ -132,6 +150,15 @@ const styles = {
     width: '150px',
     marginRight: '10px',
   },
+};
+
+const buttonStyle = {
+  backgroundColor: "#41C9E2",
+  padding: "8px 20px",
+  borderRadius: "4px",
+  border: "none",
+  cursor: "pointer",
+  marginRight: "10px", // Adds space between buttons
 };
 
 export default FullLayout;

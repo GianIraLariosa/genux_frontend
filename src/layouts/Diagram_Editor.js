@@ -1,7 +1,7 @@
 import 'bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css';
 import 'bpmn-js/dist/assets/diagram-js.css';
 import BpmnJS from 'bpmn-js/dist/bpmn-modeler.development.js';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { forwardRef, useContext, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import saveButton from "../assets/images/buttons/savebutton.png";
 import parseXML from '../assets/UtilityComponents/ParseXMLComponent';
@@ -18,10 +18,11 @@ import axios from 'axios';
 import { Atom } from 'react-loading-indicators';
 import LoadingModal from '../components/popup/LoadingModal';
 import { LoadingIndicator } from 'react-loading-indicators';
+import { generateUX } from './generateUX';
 
 
 
-const BpmnDiagram = () => {
+const BpmnDiagram = forwardRef((props, ref) => {
   const [fileContent, setFileContent] = useState('');
   const [generating, setGenerating] = useState(false);
   const [diagramName, setDiagramName] = useState('');
@@ -51,6 +52,17 @@ const BpmnDiagram = () => {
     }
   };
 
+  // Make a function available through the ref to get the current XML
+  useImperativeHandle(ref, () => ({
+    getXML: async () => {
+      if (modeler.current) {
+        const { xml } = await modeler.current.saveXML({ format: true });
+        return xml;
+      }
+      return null;
+    },
+  }));
+
   const openImportedDiagram = async (diagram) => {
     try {
       await modeler.current.importXML(diagram);
@@ -61,72 +73,16 @@ const BpmnDiagram = () => {
     }
   };
 
-  const generateUX = async ( retryCount = 3 ) => {
-    try{
-      //Set Loading indicator
-      setGenerating(true);
-
-      //data prepocessing
-      const { xml } = await modeler.current.saveXML({ format: true });
-      const data = parseXML(xml);
-      const plantUML = translateToPlantUML(data);
-
-      //save the data into a class
-      const generateInfo = new DiagramInfo(user_id, xml, "", plantUML);
-
-      //prepare the api call
-      const genAI = new GoogleGenerativeAI(API_Key);
-      const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-exp-0827' });
-      setgenerateInfo(generateInfo);
-
-      const prompt = `
-          ${plantUML}
-
-          Using the given PlantUML activity diagram, create a corresponding state diagram that represents the user experience (UX) on individual pages. For each page, generate a nested state diagram that details the various elements the user interacts with. Exclude any processes performed by the system—focus solely on user actions and interactions. Ensure that all variable names are unique (no duplicates).
-
-          The output should follow the structure below:
-          @startuml
-          [*] --> LoginPage
-
-          state LoginPage {
-            [*] --> UsernameTextfield
-            UsernameTextfield : User enters username
-            UsernameTextfield --> PasswordTextfield : Clicks Textfield
-            PasswordTextfield : User enters password
-            PasswordTextfield --> LoginButton : Clicks button
-            LoginButton : User clicks button
-          }
-          @enduml
-
-
-          Please output only the PlantUML script.
-      `;
-
-
-      const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const generatedText = await response.text();
-      // const endoutput = parseTextToPlantUML(generatedText);
-      console.log(generatedText);
-      
-      const newResponse = await axios.post('https://genux-backend-9f3x.onrender.com/api/generate-plantuml', { script: generatedText });
-      const imageUrl = newResponse.data.imageUrl;
-      navigate('/PlantUMLResult', { state: { imageUrl } });
-
-    } catch(err) {
-      console.log("error", err);
-
-      // Retry logic: retryCount controls how many times to retry before giving up
-      if (retryCount > 0) {
-        console.log(`Retrying... Attempts left: ${retryCount - 1}`);
-        await generateUX(retryCount - 1);  // Recursive call with a decremented retryCount
-      } else {
-        console.error("Max retry attempts reached. Failed to generate UX.");
-      }
-    } finally {
-      setGenerating(false);
-    }
-  };
+  const handleGenerate = () => {
+    generateUX({
+      setgenerateInfo,
+      user_id,
+      setGenerating,
+      modeler,
+      navigate,
+      retryCount: 3,
+    });
+  }
 
   const handleNewDiagram = async () => {
     const response = await fetch('empty_bpmn.bpmn');
@@ -179,10 +135,6 @@ const BpmnDiagram = () => {
     setpopupSaveOpen(false);
   };
 
-  const handleGenerate = () => {
-    generateUX();
-  };
-
   const handleXMLSaveOnClick = async () => {
     const { xml } = await modeler.current.saveXML({ format: true });
     const data = parseXML(xml);
@@ -211,11 +163,9 @@ const BpmnDiagram = () => {
       <div id="canvas" style={{ width: '100%', height: '80vh', border: '1px solid black' }}></div>
       <br/>
       <div className="d-flex align-items-center">
-        <LoadingModal loading={generating} />
-        <button onClick={handleNewDiagram} style={buttonStyle}>New Diagram</button> 
-        <button onClick={handleGenerate} style={buttonStyle}>Generate UX</button> 
-        <ImportDiagram onFileSelect={handleFileSelect} />
-        <img
+        
+        {/* <ImportDiagram onFileSelect={handleFileSelect} /> */}
+        {/* <img
           src={saveButton}
           alt="Save Diagram"
           onClick={handleXMLSaveOnClick}
@@ -225,7 +175,7 @@ const BpmnDiagram = () => {
             height: 'auto',
             marginLeft: '10px'
           }}
-        />
+        /> */}
         {popupSaveOpen && (
           <SavePopup 
             onClose={handleXMLSaveClosePopup} 
@@ -235,10 +185,11 @@ const BpmnDiagram = () => {
         )}
         {/* <img src={imageUrl} alt="Generated PlantUML Diagram" /> */}
       </div>
-      
+      <button onClick={handleNewDiagram} style={buttonStyle}>New Diagram</button> 
+      <button onClick={handleGenerate} style={buttonStyle}>Generate UX</button> 
     </div>
   );
-};
+});
 
 const buttonStyle = {
   backgroundColor: "#41C9E2",
@@ -248,6 +199,5 @@ const buttonStyle = {
   cursor: "pointer",
   marginRight: "10px", // Adds space between buttons
 };
-
 
 export default BpmnDiagram;
