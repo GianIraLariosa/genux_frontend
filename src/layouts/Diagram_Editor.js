@@ -185,8 +185,8 @@ const BpmnDiagram = forwardRef((props, ref) => {
         )}
         {/* <img src={imageUrl} alt="Generated PlantUML Diagram" /> */}
       </div>
-      <button onClick={handleNewDiagram} style={buttonStyle}>New Diagram</button> 
-      <button onClick={handleGenerate} style={buttonStyle}>Generate UX</button> 
+      {/* <button onClick={handleNewDiagram} style={buttonStyle}>New Diagram</button> 
+      <button onClick={handleGenerate} style={buttonStyle}>Generate UX</button>  */}
     </div>
   );
 });

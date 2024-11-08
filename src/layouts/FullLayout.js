@@ -3,10 +3,8 @@ import Dashboard from "./Dashboard";
 import BpmnDiagram from "./Diagram_Editor";
 import Header from "./Header";
 import toggleIcon from "../assets/images/buttons/arrow.png";
-import MonacoEditor from '@monaco-editor/react';
+import MonacoEditor from "@monaco-editor/react";
 import axios from "axios";
-import parseXML from '../assets/UtilityComponents/ParseXMLComponent';
-import translateToPlantUML from '../assets/UtilityComponents/TranslateUMLComponent';
 import { UserContext } from "../Usercontext";
 import { generateUX } from "./generateUX";
 
@@ -19,49 +17,52 @@ const FullLayout = () => {
   const [generateInfo, setgenerateInfo] = useState(null);
   const { user_id } = useContext(UserContext);
   const [generating, setGenerating] = useState(false);
-  
-  const generateUX_button = async () => {
-      if(bpmnRef.current) {
-       const xml = await bpmnRef.current.getXML();
-      //  const xml = modeler.PromiseResult;
-      //  console.log(modeler);
-       const generated_text = await generateUX({
-          setgenerateInfo,
-          user_id,
-          setGenerating,
-          xml,
-          retryCount: 3,
-        });
 
-        // const data = parseXML(xml);
-        // const plantUML = translateToPlantUML(data);
-        setCode(generated_text);
-        console.log(generated_text);
-        const newResponse = await axios.post('https://genux-backend-9f3x.onrender.com/api/generate-plantuml', { script: generated_text });
-        const imageUrl = newResponse.data.imageUrl;
-        setImageUrl(imageUrl);
-      }
+  const generateUX_button = async () => {
+    if (bpmnRef.current) {
+      const xml = await bpmnRef.current.getXML();
+      const generated_text = await generateUX({
+        setgenerateInfo,
+        user_id,
+        setGenerating,
+        xml,
+        retryCount: 3,
+      });
+
+      setCode(generated_text);
+      updateImage(generated_text);
+    }
+  };
+
+  const updateImage = async (script) => {
+    try {
+      const response = await axios.post("https://genux-backend-9f3x.onrender.com/api/generate-plantuml", {
+        script,
+      });
+      setImageUrl(response.data.imageUrl);
+    } catch (error) {
+      console.error("Error updating image:", error);
+    }
   };
 
   const handleEditorChange = (value) => {
-      setCode(value);
-    };
+    setCode(value);
+  };
+
+  const handleUpdateImageClick = () => {
+    updateImage(code);
+  };
 
   const toggleDashboard = () => {
-    console.log("Toggle button clicked");
-    setIsDashboardVisible((prevVisible) => {
-      console.log("Previous visibility:", prevVisible);
-      return !prevVisible;
-    });
+    setIsDashboardVisible((prevVisible) => !prevVisible);
   };
 
   return (
-    <main>
+    <main style={{ height: "100vh", overflow: "hidden" }}>
       <div className="pageWrapper d-lg-flex">
         <Header />
-        {/* <LoadingModal loading={generating} /> */}
-        <div className="contentArea">
-          <div style={contentAreaStyle}>
+        <div className="contentArea" style={contentAreaStyle}>
+          <div style={sidebarToggleStyle}>
             <img
               src={toggleIcon}
               alt={isDashboardVisible ? "Hide Dashboard" : "Show Dashboard"}
@@ -71,34 +72,32 @@ const FullLayout = () => {
                 cursor: "pointer",
                 width: "30px",
                 height: "30px",
-                marginLeft: "5px",
-                marginRight: "5px",
+                margin: "5px",
                 transform: `rotate(${rotation}deg)`,
                 transition: "transform 0.3s ease",
               }}
             />
-            </div>
             {isDashboardVisible && (
               <aside className="sidebarArea shadow" id="sidebarArea">
                 <Dashboard />
               </aside>
             )}
+          </div>
 
-            <div className="diagramArea">
-              <BpmnDiagram ref={bpmnRef} />
-            </div>
+          <div style={diagramContainerStyle}>
+            <BpmnDiagram ref={bpmnRef} />
+          </div>
 
-            <button onClick={generateUX_button} style={styles.button}>Generate UX</button> 
-
-            <div className="diagramArea" style={{ border: '1px solid black', 
-              width: '20%', 
-              height: '80vh', 
-              margin: '20px', 
-              display: 'block',
-              }}>
+          <div style={editorContainerStyle}>
+            <button onClick={generateUX_button} style={styles.button}>
+              Generate UX
+            </button>
+            <button onClick={handleUpdateImageClick} style={styles.button}>
+              Update Image
+            </button>
             <MonacoEditor
-              height="300px"
-              width="450px"
+              height="250px"
+              width="100%"
               defaultLanguage="plaintext"
               value={code}
               onChange={handleEditorChange}
@@ -119,46 +118,69 @@ const FullLayout = () => {
 
 const contentAreaStyle = {
   display: "flex",
+  alignItems: "stretch",
+  justifyContent: "flex-start",
+  backgroundColor: "#f8f9fa",
+  height: "100%",
+};
+
+const sidebarToggleStyle = {
+  display: "flex",
   alignItems: "center",
   justifyContent: "flex-start",
-  backgroundColor: "#f8f9fa", 
-  padding: "5px", 
-  borderRadius: "4px",
+  padding: "5px",
   borderRight: "1px solid black",
 };
 
-const styles = {
-  image: {
-    maxWidth: '100%',
-    height: 'auto',
-    border: '2px solid #ddd',
-    borderRadius: '10px',
-    padding: '10px',
-    marginTop: '20px',
-  },
-  loadingText: {
-    fontSize: '18px',
-    color: '#777',
-  },
-  button: {
-    padding: '10px 20px',
-    backgroundColor: '#007BFF',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    width: '150px',
-    marginRight: '10px',
-  },
+const diagramContainerStyle = {
+  flex: "1 1 auto",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  backgroundColor: "#f0f0f0",
+  borderRadius: "8px",
+  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+  overflow: "hidden",
 };
 
-const buttonStyle = {
-  backgroundColor: "#41C9E2",
-  padding: "8px 20px",
-  borderRadius: "4px",
-  border: "none",
-  cursor: "pointer",
-  marginRight: "10px", // Adds space between buttons
+const editorContainerStyle = {
+  width: "35%",
+  padding: "20px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  backgroundColor: "#f0f0f0",
+  borderRadius: "8px",
+  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+  marginLeft: "20px",
+  overflowY: "auto",
+};
+
+const styles = {
+  button: {
+    padding: "10px 20px",
+    backgroundColor: "#007BFF",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    margin: "10px 0",
+    width: "150px",
+    textAlign: "center",
+  },
+  image: {
+    maxWidth: "100%",
+    height: "auto",
+    border: "2px solid #ddd",
+    borderRadius: "10px",
+    padding: "10px",
+    marginTop: "20px",
+  },
+  loadingText: {
+    fontSize: "18px",
+    color: "#777",
+    marginTop: "20px",
+  },
 };
 
 export default FullLayout;
