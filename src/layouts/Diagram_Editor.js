@@ -156,11 +156,11 @@ const BpmnDiagram = forwardRef((props, ref) => {
   };
 
   return (
-    <div>
+    <div style={{ width: '95%', paddingTop: '3%' }}>
       {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '10px', marginBottom: '10px', position: 'relative' }}>
         Additional buttons can be placed here
       </div> */}
-      <div id="canvas" style={{ width: '100%', height: '80vh', border: '1px solid black' }}></div>
+      <div id="canvas" style={{ width: '100%', height: '85vh', border: '1px solid black' }}></div>
       <br/>
       <div className="d-flex align-items-center">
         

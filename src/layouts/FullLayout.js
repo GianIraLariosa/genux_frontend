@@ -85,7 +85,9 @@ const FullLayout = () => {
           </div>
 
           <div style={diagramContainerStyle}>
-            <BpmnDiagram ref={bpmnRef} />
+            {/* <div style={{ flex: 1 }}> */}
+              <BpmnDiagram ref={bpmnRef} />
+            {/* </div> */}
           </div>
 
           <div style={editorContainerStyle}>
