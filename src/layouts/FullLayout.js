@@ -7,6 +7,7 @@ import MonacoEditor from "@monaco-editor/react";
 import axios from "axios";
 import { UserContext } from "../Usercontext";
 import { generateUX } from "./generateUX";
+import { minHeight } from "@mui/system";
 
 const FullLayout = () => {
   const [isDashboardVisible, setIsDashboardVisible] = useState(false);
@@ -91,12 +92,6 @@ const FullLayout = () => {
           </div>
 
           <div style={editorContainerStyle}>
-            <button onClick={generateUX_button} style={styles.button}>
-              Generate UX
-            </button>
-            <button onClick={handleUpdateImageClick} style={styles.button}>
-              Update Image
-            </button>
             <MonacoEditor
               height="250px"
               width="100%"
@@ -105,6 +100,15 @@ const FullLayout = () => {
               onChange={handleEditorChange}
               options={{ fontSize: 14, minimap: { enabled: false } }}
             />
+
+            <div>
+              <button onClick={generateUX_button} style={styles.button}>
+                Generate UX
+              </button>
+              <button onClick={handleUpdateImageClick} style={styles.button}>
+                Update Image
+              </button>
+            </div>
 
             {imageUrl ? (
               <img src={imageUrl} alt="Generated State Diagram" style={styles.image} />
@@ -166,9 +170,10 @@ const styles = {
     border: "none",
     borderRadius: "5px",
     cursor: "pointer",
-    margin: "10px 0",
     width: "150px",
     textAlign: "center",
+    marginTop: "30px",
+    marginRight: "10px"
   },
   image: {
     maxWidth: "100%",
