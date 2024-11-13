@@ -160,12 +160,22 @@ const BpmnDiagram = forwardRef((props, ref) => {
       {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '10px', marginBottom: '10px', position: 'relative' }}>
         Additional buttons can be placed here
       </div> */}
-      <div id="canvas" style={{ width: '100%', height: '85vh', border: '1px solid black' }}></div>
-      <br/>
-      <div className="d-flex align-items-center">
-        
-        {/* <ImportDiagram onFileSelect={handleFileSelect} /> */}
-        {/* <img
+      <div
+        id="canvas-wrapper"
+        style={{
+          width: '100%',
+          height: '85vh',
+          border: '1px solid black',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+        }}
+      >
+        {/* Modeler Canvas */}
+        <div id="canvas" style={{ flex: 1, height: '100%' }}></div>
+
+        {/* Save Button */}
+        <img
           src={saveButton}
           alt="Save Diagram"
           onClick={handleXMLSaveOnClick}
@@ -173,9 +183,15 @@ const BpmnDiagram = forwardRef((props, ref) => {
             cursor: 'pointer',
             width: '30px',
             height: 'auto',
-            marginLeft: '10px'
+            marginLeft: '10px', // Optional spacing between canvas and button
           }}
-        /> */}
+        />
+
+        <ImportDiagram onFileSelect={handleFileSelect} />
+      </div>
+      <br/>
+      <div className="d-flex align-items-center">
+
         {popupSaveOpen && (
           <SavePopup 
             onClose={handleXMLSaveClosePopup} 

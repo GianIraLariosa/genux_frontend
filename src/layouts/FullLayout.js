@@ -8,6 +8,7 @@ import axios from "axios";
 import { UserContext } from "../Usercontext";
 import { generateUX } from "./generateUX";
 import { minHeight } from "@mui/system";
+import { useLocation, useNavigate, Route, Routes } from 'react-router-dom';
 
 const FullLayout = () => {
   const [isDashboardVisible, setIsDashboardVisible] = useState(false);
@@ -18,6 +19,8 @@ const FullLayout = () => {
   const [generateInfo, setgenerateInfo] = useState(null);
   const { user_id } = useContext(UserContext);
   const [generating, setGenerating] = useState(false);
+  const [wireframeTitle, setWireframeTitle] = useState("");  
+  const navigate = useNavigate();
 
   const generateUX_button = async () => {
     if (bpmnRef.current) {
@@ -56,6 +59,56 @@ const FullLayout = () => {
 
   const toggleDashboard = () => {
     setIsDashboardVisible((prevVisible) => !prevVisible);
+  };
+
+  const handleSaveWireframe = async () => {
+    try {
+      const saveData = {
+        user_id: user_id, 
+        imageUrl: imageUrl,
+        title: wireframeTitle,
+      };
+      console.log('Saving data:', saveData);
+      const response = await axios.post('https://genux-backend-9f3x.onrender.com/wireframe', saveData); 
+    } catch (error) {
+      console.error("Error while saving UX wireframe:", error);
+    }
+  };
+
+  const handleSaveLocal = async () => {
+    try {
+      // Fetch the image data from the imageUrl
+      const response = await axios.get(imageUrl, {
+        responseType: 'blob' // Get the image as a blob
+      });
+  
+      // Create a Blob from the response
+      const blob = new Blob([response.data], { type: 'image/png' });
+  
+      // Create a temporary download link
+      const downloadUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+  
+      // Set the download attribute (filename)
+      link.download = `${wireframeTitle || 'generated-diagram'}.png`;
+  
+      // Append the link to the body (required for Firefox)
+      document.body.appendChild(link);
+  
+      // Trigger the download
+      link.click();
+  
+      // Remove the link from the DOM after downloading
+      document.body.removeChild(link);
+  
+      console.log('Image saved locally.');
+      
+      // Navigate to another page after the save
+      navigate('/user');
+    } catch (error) {
+      console.error("Error while saving UX wireframe:", error);
+    }
   };
 
   return (
@@ -110,11 +163,30 @@ const FullLayout = () => {
               </button>
             </div>
 
+            <div>
+            <input 
+              type="text" 
+              placeholder="Enter wireframe title" 
+              value={wireframeTitle}
+              onChange={(e) => setWireframeTitle(e.target.value)} 
+              style={styles.input}
+            />
+            </div>
+
             {imageUrl ? (
               <img src={imageUrl} alt="Generated State Diagram" style={styles.image} />
             ) : (
               <p style={styles.loadingText}>Loading diagram...</p>
             )}
+
+        <div>
+            <button onClick={handleSaveLocal} style={styles.button}>
+              Save Locally
+            </button>
+            <button onClick={handleSaveWireframe} style={styles.button}>
+              Save UX
+            </button>
+        </div>
           </div>
         </div>
       </div>
@@ -173,7 +245,8 @@ const styles = {
     width: "150px",
     textAlign: "center",
     marginTop: "30px",
-    marginRight: "10px"
+    marginRight: "10px",
+    marginBottom: "10px"
   },
   image: {
     maxWidth: "100%",

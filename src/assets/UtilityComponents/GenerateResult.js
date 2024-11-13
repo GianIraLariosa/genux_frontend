@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { useLocation, useNavigate, Route, Routes } from 'react-router-dom';
+  import React, { useState, useContext } from 'react';
+  import { useLocation, useNavigate, Route, Routes } from 'react-router-dom';
 import Header from "../../layouts/Header";
 import axios from 'axios';  
 import { UserContext } from "../../Usercontext";
@@ -72,16 +72,16 @@ const GenerateResult = () => {
   return (
     <div style={styles.container}>
       {/* <Header /> */}
-      <h2 style={styles.title}>Generated State Diagram</h2>
-      <div>
-      <input 
-        type="text" 
-        placeholder="Enter wireframe title" 
-        value={wireframeTitle}
-        onChange={(e) => setWireframeTitle(e.target.value)} 
-        style={styles.input}
-      />
-      </div>
+        <h2 style={styles.title}>Generated State Diagram</h2>
+        <div>
+        <input 
+          type="text" 
+          placeholder="Enter wireframe title" 
+          value={wireframeTitle}
+          onChange={(e) => setWireframeTitle(e.target.value)} 
+          style={styles.input}
+        />
+        </div>
       {imageUrl ? (
         <img src={imageUrl} alt="Generated State Diagram" style={styles.image} />
       ) : (
