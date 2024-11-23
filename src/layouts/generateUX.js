@@ -5,13 +5,13 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import axios from 'axios';
 
 export const generateUX = async ({ setgenerateInfo, user_id, setGenerating, xml, navigate, retryCount = 3 }) => {
-    const API_Key = 'AIzaSyB2M82ENZgfYOHWsuBS9NqG3jHyz7xo9TQ';
+    const API_Key = 'AIzaSyBDRBBgf0jcTb9MZMWTJcUSqOoP9ZfzxMI';
     try{
-      //Set Loading indicator
-    //   setGenerating(true);
+      // Set Loading indicator
+      // setGenerating(true);
 
-      //data prepocessing
-    //   const { xml } = await modeler.current.saveXML({ format: true });
+      // data prepocessing
+      // const { xml } = await modeler.current.saveXML({ format: true });
       const data = parseXML(xml);
       const plantUML = translateToPlantUML(data);
 
