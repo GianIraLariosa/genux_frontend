@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Dashboard from "./Dashboard";
 import BpmnDiagram from "./Diagram_Editor";
 import Header from "./Header";
@@ -7,8 +7,11 @@ import MonacoEditor from "@monaco-editor/react";
 import axios from "axios";
 import { UserContext } from "../Usercontext";
 import { generateUX } from "./generateUX";
-import { minHeight } from "@mui/system";
+import { minHeight, padding } from "@mui/system";
 import { useLocation, useNavigate, Route, Routes } from 'react-router-dom';
+import { Atom, OrbitProgress, ThreeDot } from "react-loading-indicators";
+import classNames from "classnames";
+import './button_style.css';
 
 const FullLayout = () => {
   const [isDashboardVisible, setIsDashboardVisible] = useState(false);
@@ -22,21 +25,57 @@ const FullLayout = () => {
   const [wireframeTitle, setWireframeTitle] = useState("");  
   const navigate = useNavigate();
 
-  const generateUX_button = async () => {
-    if (bpmnRef.current) {
-      const xml = await bpmnRef.current.getXML();
-      const generated_text = await generateUX({
-        setgenerateInfo,
-        user_id,
-        setGenerating,
-        xml,
-        retryCount: 3,
-      });
+  useEffect(() => {
+    let isMounted = true; // Flag to prevent state updates after unmount
 
-      setCode(generated_text);
-      updateImage(generated_text);
+    const generateAndHandle = async () => {
+      if (!isMounted) return;
+      try {
+        setGenerating(true); //Disable button immediately
+        if (bpmnRef.current) {
+          const xml = await bpmnRef.current.getXML();
+          const generated_text = await generateUX({
+            setgenerateInfo,
+            user_id,
+            setGenerating,
+            xml,
+            retryCount: 3,
+          });
+          setCode(generated_text);
+          await updateImage(generated_text); // Await the image update
+        }
+      } catch (error) {
+        console.error("Error generating UX:", error);
+        // Handle the error appropriately, perhaps display a message to the user
+      } finally {
+        if (isMounted) setGenerating(false); //Enable button after completion (success or failure)
+      }
+    };
+
+    if (generating) {
+      generateAndHandle();
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [generating]);
+
+
+  const generateUX_button = async () => {
+    if (!generating) {
+      //No need for await here since the actual work is done in the useEffect
+      setGenerating(true); 
     }
   };
+
+  const Loading = () => <OrbitProgress style={{ fontSize: "7px" }} color={"white"} />;
+
+  const buttonContent = generating ? (
+    <Loading />
+  ) : (
+    "Generate UX"
+  );
 
   const updateImage = async (script) => {
     try {
@@ -145,6 +184,9 @@ const FullLayout = () => {
           </div>
 
           <div style={editorContainerStyle}>
+            <div className={classNames('trapezoidal')}>
+                Generated State Diagram
+            </div>
             <MonacoEditor
               height="250px"
               width="100%"
@@ -154,9 +196,12 @@ const FullLayout = () => {
               options={{ fontSize: 14, minimap: { enabled: false } }}
             />
 
-            <div>
-              <button onClick={generateUX_button} style={styles.button}>
-                Generate UX
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button 
+                onClick={generateUX_button} 
+                className={classNames('button1', { 'buttonDisabled': generating })}
+                disabled={generating}>
+                  {buttonContent}
               </button>
               <button onClick={handleUpdateImageClick} style={styles.button}>
                 Update Image
@@ -235,7 +280,7 @@ const editorContainerStyle = {
 };
 
 const styles = {
-  button: {
+    button: {
     padding: "10px 20px",
     backgroundColor: "#007BFF",
     color: "#fff",

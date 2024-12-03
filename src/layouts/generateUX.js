@@ -8,7 +8,7 @@ export const generateUX = async ({ setgenerateInfo, user_id, setGenerating, xml,
     const API_Key = 'AIzaSyBDRBBgf0jcTb9MZMWTJcUSqOoP9ZfzxMI';
     try{
       // Set Loading indicator
-      // setGenerating(true);
+      setGenerating(true);
 
       // data prepocessing
       // const { xml } = await modeler.current.saveXML({ format: true });
@@ -26,7 +26,11 @@ export const generateUX = async ({ setgenerateInfo, user_id, setGenerating, xml,
       const prompt = `
           ${plantUML}
 
-          Using the given PlantUML activity diagram, create a corresponding state diagram that represents the user experience (UX) on individual pages. For each page, generate a nested state diagram that details the various elements the user interacts with. Exclude any processes performed by the system—focus solely on user actions and interactions. Ensure that all variable names are unique (no duplicates).
+          Using the given PlantUML activity diagram, create a corresponding state 
+          diagram that represents the user experience (UX) on individual pages. 
+          For each page, generate a nested state diagram that details the various elements 
+          the user interacts with. Exclude any processes performed by the system—focus solely 
+          on user actions and interactions. Ensure that all variable names are unique (no duplicates).
 
           The output should follow the structure below:
           @startuml
@@ -43,7 +47,9 @@ export const generateUX = async ({ setgenerateInfo, user_id, setGenerating, xml,
           @enduml
 
 
-          Please output only the PlantUML script.
+          Please output only the PlantUML script and do not put any other symbols other than the ones above.
+          Please don't deviate from the format above.
+          Please don't put if-else statements.
       `;
 
 
@@ -69,6 +75,6 @@ export const generateUX = async ({ setgenerateInfo, user_id, setGenerating, xml,
         console.error("Max retry attempts reached. Failed to generate UX.");
       }
     } finally {
-    //   setGenerating(false);
+      setGenerating(false);
     }
   };

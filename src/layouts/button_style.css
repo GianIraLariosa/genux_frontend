@@ -1,0 +1,42 @@
+.button1 {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 150px;
+    text-align: center;
+    margin-top: 30px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .buttonDisabled {
+    cursor: default;
+    opacity: 0.6;
+  }
+
+  .trapezoidal {
+    width: 65%;
+    height: 50px;
+    background-color: #007BFF;
+    clip-path: polygon(0% 100%, 20% 0%, 80% 0%, 100% 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    overflow: hidden; /* Ensure content doesn't overflow */
+  }
+  
+  .trapezoidal::before {
+    content: '';
+    position: absolute;
+    top: -15px;  /* Move up to overlap the top */
+    left: 20px;  /* Start from the left part of the trapezoid */
+    right: 20px; /* End at the right part of the trapezoid */
+    height: 30px;
+    background-color: #007BFF;
+    border-radius: 50% 50% 0 0; /* Apply rounded corners to the top */
+    z-index: 1;  /* Ensure the pseudo-element appears above the trapezoid */
+  }
