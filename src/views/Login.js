@@ -14,7 +14,7 @@ import {
   Input,
 } from "reactstrap";
 import { UserContext } from "../Usercontext";
-import UXLogo from "../assets/images/logos/UX.png";
+import UXLogo from "../assets/images/logos/Act2State.png";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -56,7 +56,7 @@ const Login = () => {
                 className="rounded-circle"
                 width="75"
               ></img>
-            Welcome to GenerateUX!
+            Welcome to Act2State!
           </CardTitle>
           <CardBody>
             <Form onSubmit={handleLogin}>
