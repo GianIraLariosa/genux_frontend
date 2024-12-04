@@ -157,9 +157,6 @@ const BpmnDiagram = forwardRef((props, ref) => {
 
   return (
     <div style={{ width: '95%', paddingTop: '3%' }}>
-      {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '10px', marginBottom: '10px', position: 'relative' }}>
-        Additional buttons can be placed here
-      </div> */}
       <div
         id="canvas-wrapper"
         style={{
