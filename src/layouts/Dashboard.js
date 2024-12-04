@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useImperativeHandle, forwardRef, useContext, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { UserContext } from "../Usercontext";
 import refreshButton from "../assets/images/buttons/refresh-button.png";
 import WireframePopup from '../components/popup/wireframepopup';
 
-const Dashboard = () => {
+const Dashboard = forwardRef ((props, ref) => {
   const navigate = useNavigate();
   const [showError, setShowError] = useState(false);
   const [diagrams, setDiagrams] = useState([]);
@@ -83,6 +83,10 @@ const Dashboard = () => {
     padding: 0,
     margin: 0,
   };
+
+  useImperativeHandle(ref, () => ({
+    refreshDashboard
+  }));
 
   return (
     <div className="p-3" style={{border: '1px solid black' }}>
@@ -187,6 +191,6 @@ const Dashboard = () => {
       )}
     </div>
   );
-};
+});
 
 export default Dashboard;
