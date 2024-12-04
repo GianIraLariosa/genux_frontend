@@ -28,26 +28,36 @@ const Registration = () => {
       password: password,
     }
 
-    await axios.post('https://genux-backend-9f3x.onrender.com/registration', postData)
-    .then(res => setMessage(<p>{res.data}</p>))
+    try{
+      await axios.post('https://genux-backend-9f3x.onrender.com/registration', postData)
+        .then(res => setMessage(<p>{res.data}</p>));
+    } catch (error) {
+      setMessage('Error');
+    }
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if(!firstName) {
-      setMessage('Firstname is empty')
-    } else if(!lastName) {
-      setMessage('Lastname is empty')
-    } else if(!username) {
-      setMessage('Username is empty')
-    } else if(!password) {
-      setMessage('Password is empty')
-    } else {
-      setMessage('Error')
-    } 
-
-    axiosPostData()
+    if (!firstName) {
+      setMessage('Firstname is empty');
+      return;
+    }
+    if (!lastName) {
+      setMessage('Lastname is empty');
+      return;
+    }
+    if (!username) {
+      setMessage('Username is empty');
+      return;
+    }
+    if (!password) {
+      setMessage('Password is empty');
+      return;
+    }
+  
+    setMessage('');
+    await axiosPostData();
   };
 
   return (

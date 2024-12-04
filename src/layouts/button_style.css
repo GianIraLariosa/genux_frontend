@@ -29,14 +29,4 @@
     overflow: hidden; /* Ensure content doesn't overflow */
   }
   
-  .trapezoidal::before {
-    content: '';
-    position: absolute;
-    top: -15px;  /* Move up to overlap the top */
-    left: 20px;  /* Start from the left part of the trapezoid */
-    right: 20px; /* End at the right part of the trapezoid */
-    height: 30px;
-    background-color: #007BFF;
-    border-radius: 50% 50% 0 0; /* Apply rounded corners to the top */
-    z-index: 1;  /* Ensure the pseudo-element appears above the trapezoid */
-  }
+  
