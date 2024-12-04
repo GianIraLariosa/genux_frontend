@@ -11,7 +11,7 @@ import {
   Input } from 'reactstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import UXLogo from "../assets/images/logos/UX.png";
+import UXLogo from "../assets/images/logos/Act2State.png";
 const Registration = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -65,7 +65,7 @@ const Registration = () => {
                 className="rounded-circle"
                 width="75"
               ></img>
-            Start your journey now, here at GenerateUX!
+            Start your journey now, here at Act2State!
           </CardTitle>
           <CardBody>
             <Form onSubmit={handleSubmit}>
@@ -103,15 +103,22 @@ const Registration = () => {
                 />
               </FormGroup>
               <FormGroup>
-                <Label style={{ color: '#008DDA', display: 'block' }} for="password">Password</Label>
+                <Label style={{ color: "#008DDA", display: "block" }} for="password">
+                  Password
+                </Label>
                 <Input
                   type="password"
-                  id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  minLength={8} // Enforce a minimum length
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&]).{6,}"
+                  title="Password must be at least 8 characters long and include a mix of uppercase, lowercase, numbers, and special characters."
                   style={{ ...inputStyle }}
                 />
+                <small style={{ color: "gray", fontSize: "0.8rem" }}>
+                  Password must be at least 6 characters long, include uppercase and lowercase letters, a number, and a special character.
+                </small>
               </FormGroup>
               <div style={{ textAlign: 'center', marginTop: '10px' }}>
                 <p style={{ display: 'inline', textDecoration: 'none', color: '#000000', marginRight: '5px' }}>Already have an account?</p>

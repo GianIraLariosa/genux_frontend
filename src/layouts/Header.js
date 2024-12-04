@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Collapse, Nav, NavItem, Navbar } from "reactstrap";
 import { UserContext } from '../../src/Usercontext';
-import UXLogo from "../assets/images/logos/UX.png";
+import UXLogo from "../assets/images/logos/Act2StateBorder.png";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -68,25 +68,27 @@ const Header = () => {
       <Collapse navbar isOpen={isOpen}>
         <Nav className="me-auto" navbar>
           <NavItem>
-            <Link to="/user" className="nav-link" onClick={handleLogin}>
-              Home
-            </Link>
-          </NavItem>
-          <NavItem>
-            <Link to= '/login' className="nav-link" onClick={handlelogout}>
-              Logout
-            </Link>
-          </NavItem>
-        </Nav>
-        
-        <Nav className="ms-auto" navbar>
-          <NavItem>
+          <Link to="/user" className="nav-link" onClick={handleLogin}>
             <img
               src={UXLogo}
               alt="profile"
               className="rounded-circle"
-              width="50"
+              width="35"
+              style={{
+                //border: "2px solid white", // Add a white border
+                cursor: "pointer"          // Add pointer cursor to indicate clickability
+              }}
             />
+          </Link>
+          </NavItem>
+          <NavItem>
+            <Link to= '/login' className="nav-link d-flex align-items-center" onClick={handlelogout} style={{
+              height: "100%",       // Ensure the parent container height is utilized
+              justifyContent: "center", // Center the text horizontally
+              textAlign: "center",  // Ensure proper centering for text
+            }}>
+              Logout
+            </Link>
           </NavItem>
         </Nav>
       </Collapse>
