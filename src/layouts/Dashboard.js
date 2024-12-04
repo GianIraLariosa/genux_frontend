@@ -85,8 +85,8 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-3">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <div className="p-3" style={{border: '1px solid black' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid black'}}>
         <h2>Dashboard</h2>
         <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
           <img
@@ -103,8 +103,7 @@ const Dashboard = () => {
           />
         </div>
       </div>
-
-      <div className="d-flex flex-column align-items-center">
+      <div className="d-flex flex-column align-items-center" style={{marginTop: '10px'}}>
         <h3>Diagrams</h3>
         <ul className="dashboard-list" style={listStyle}>
           {diagrams.length > 0 ? (
@@ -153,7 +152,6 @@ const Dashboard = () => {
                   style={{
                     marginRight: '5px',
                     background: 'transparent',
-                    border: '1px solid black',
                     borderRadius: '4px',
                     padding: '2px 6px',
                     cursor: 'pointer',

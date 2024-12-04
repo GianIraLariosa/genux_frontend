@@ -10,7 +10,7 @@ const GenerateResult = () => {
   const navigate = useNavigate();
   const { imageUrl } = location.state || {}; 
   const { user_id } = useContext(UserContext); 
-
+  const [isSaved, setIsSaved] = useState(false);
   const [wireframeTitle, setWireframeTitle] = useState("");  
 
   <Routes>
@@ -27,6 +27,7 @@ const GenerateResult = () => {
       };
       console.log('Saving data:', saveData);
       const response = await axios.post('https://genux-backend-9f3x.onrender.com/wireframe', saveData);
+      setIsSaved(true);
       navigate('/user');
     } catch (error) {
       console.error("Error while saving UX wireframe:", error);
@@ -61,8 +62,7 @@ const GenerateResult = () => {
       document.body.removeChild(link);
   
       console.log('Image saved locally.');
-      
-      // Navigate to another page after the save
+      setIsSaved(true);
       navigate('/user');
     } catch (error) {
       console.error("Error while saving UX wireframe:", error);
@@ -87,16 +87,14 @@ const GenerateResult = () => {
         <p style={styles.loadingText}>Loading diagram...</p>
       )}
       
-      <div style={styles.buttonContainer}>
-        <button onClick={() => navigate(-1)} style={styles.button}>
-          Go Back
-        </button>
+      <div>
         <button onClick={handleSaveLocal} style={styles.saveButton}>
           Save Locally
         </button>
         <button onClick={handleSaveWireframe} style={styles.saveButton}>
           Save UX
         </button>
+        {isSaved && <div style={styles.savedMessage}>Diagram Saved</div>}
       </div>
     </div>
   );

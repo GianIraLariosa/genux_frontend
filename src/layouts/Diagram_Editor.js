@@ -19,7 +19,7 @@ import { Atom } from 'react-loading-indicators';
 import LoadingModal from '../components/popup/LoadingModal';
 import { LoadingIndicator } from 'react-loading-indicators';
 import { generateUX } from './generateUX';
-
+import newButton from "../assets/images/buttons/refresh-button.png";
 
 
 const BpmnDiagram = forwardRef((props, ref) => {
@@ -175,6 +175,7 @@ const BpmnDiagram = forwardRef((props, ref) => {
         <img
           src={saveButton}
           alt="Save Diagram"
+          title="Save Diagram"
           onClick={handleXMLSaveOnClick}
           style={{
             cursor: 'pointer',
@@ -183,8 +184,18 @@ const BpmnDiagram = forwardRef((props, ref) => {
             marginLeft: '10px', // Optional spacing between canvas and button
           }}
         />
-
-        <ImportDiagram onFileSelect={handleFileSelect} />
+      <img 
+        src={newButton}
+        alt="Load Empty Bpmn" 
+        title="Load Empty Diagram"
+        onClick={openDiagram}
+        style={{
+          cursor: 'pointer',
+          width: '30px',
+          height: 'auto',
+        }}
+      />
+      <ImportDiagram onFileSelect={handleFileSelect} />
       </div>
       <br/>
       <div className="d-flex align-items-center">

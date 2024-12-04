@@ -24,7 +24,8 @@ function ImportDiagram({ onFileSelect }) {
     <div>
       <img 
     src={uploadButton}
-    alt="Upload Bpmn" 
+    alt="Upload Bpmn"
+    title="Upload Diagram"
     onClick={handleButtonClick}
     //style={{ cursor: 'pointer', width: '30px', height: 'auto', marginLeft: '750px'}} 
     style={{
