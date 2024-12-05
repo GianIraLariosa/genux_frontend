@@ -24,6 +24,7 @@ const FullLayout = () => {
   const [generating, setGenerating] = useState(false);
   const [wireframeTitle, setWireframeTitle] = useState("");  
   const navigate = useNavigate();
+  const dashboardRef = useRef(null);
 
   useEffect(() => {
     let isMounted = true; // Flag to prevent state updates after unmount
@@ -108,7 +109,11 @@ const FullLayout = () => {
         title: wireframeTitle,
       };
       console.log('Saving data:', saveData);
-      const response = await axios.post('https://genux-backend-9f3x.onrender.com/wireframe', saveData); 
+      const response = await axios.post('https://genux-backend-9f3x.onrender.com/wireframe', saveData);
+      
+      if (dashboardRef.current) {
+        dashboardRef.current.refreshDashboard();
+      }
     } catch (error) {
       console.error("Error while saving UX wireframe:", error);
     }
@@ -172,7 +177,7 @@ const FullLayout = () => {
             />
             {isDashboardVisible && (
               <aside className="sidebarArea shadow" id="sidebarArea">
-                <Dashboard />
+                <Dashboard ref={dashboardRef}/>
               </aside>
             )}
           </div>
