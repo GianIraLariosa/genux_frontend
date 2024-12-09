@@ -159,7 +159,7 @@ const FullLayout = () => {
       <div className="pageWrapper d-lg-flex">
         <Header />
         <div className="contentArea" style={contentAreaStyle}>
-          <div style={sidebarToggleStyle}>
+          <div className="sidebar-toggle">
             <img
               src={toggleIcon}
               alt={isDashboardVisible ? "Hide Dashboard" : "Show Dashboard"}
@@ -177,26 +177,25 @@ const FullLayout = () => {
             )}
           </div>
 
-          <div style={diagramContainerStyle}>
-            {/* <div style={{ flex: 1 }}> */}
-              <BpmnDiagram ref={bpmnRef} />
-            {/* </div> */}
+          <div className="diagram-container">
+            <BpmnDiagram ref={bpmnRef} />
           </div>
           
-          <div style={editorContainerStyle}>
+          <div className="editor-container">
           <h4>Step 2</h4>
             <div>
-                <p className="title-style">Generated State Diagram</p>
+                <p className="title-style">State Diagram</p>
             </div>
-            <MonacoEditor
-              height="250px"
-              width="100%"
-              defaultLanguage="plaintext"
-              value={code}
-              onChange={handleEditorChange}
-              options={{ fontSize: 14, minimap: { enabled: false } }}
-            />
-
+            <div className="monaco-container">
+              <MonacoEditor
+                height="250px"
+                width="100%"
+                defaultLanguage="plaintext"
+                value={code}
+                onChange={handleEditorChange}
+                options={{ fontSize: 14, minimap: { enabled: false } }}
+              />
+            </div>
             <div style={{ display: 'flex', gap: '10px' }}>
               <button 
                 onClick={generateUX_button} 
@@ -244,40 +243,8 @@ const contentAreaStyle = {
   display: "flex",
   alignItems: "stretch",
   justifyContent: "flex-start",
-  backgroundColor: "#f8f9fa",
+  backgroundColor: "white",
   height: "100%",
-};
-
-const sidebarToggleStyle = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-start",
-  padding: "5px",
-  borderRight: "1px solid black",
-};
-
-const diagramContainerStyle = {
-  flex: "1 1 auto",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  backgroundColor: "#f0f0f0",
-  borderRadius: "8px",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-  overflow: "hidden",
-};
-
-const editorContainerStyle = {
-  width: "35%",
-  padding: "20px",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  backgroundColor: "#f0f0f0",
-  borderRadius: "8px",
-  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-  marginLeft: "20px",
-  overflowY: "auto",
 };
 
 const styles = {

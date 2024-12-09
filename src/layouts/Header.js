@@ -55,43 +55,35 @@ const Header = () => {
 
   return (
     <Navbar color="primary" expand="md">
-      <div className="d-flex align-items-center">
-        <Button
-          color="primary"
-          className="d-lg-none"
-          onClick={showMobilemenu}
-        >
-          <i className="bi bi-list"></i>
-        </Button>
-      </div>
-      
-      <Collapse navbar isOpen={isOpen}>
-        <Nav className="me-auto" navbar>
-          <NavItem>
-          <Link to="/user" className="nav-link" onClick={handleLogin}>
+      <Nav className="me-auto d-flex align-items-center" navbar>
+        <NavItem className="d-flex align-items-center">
+          <Link to="/user" className="nav-link p-0" onClick={handleLogin}>
             <img
               src={UXLogo}
               alt="profile"
               className="rounded-circle"
               width="35"
               style={{
-                //border: "2px solid white", // Add a white border
-                cursor: "pointer"          // Add pointer cursor to indicate clickability
+                cursor: "pointer", // Add pointer cursor to indicate clickability
               }}
             />
           </Link>
-          </NavItem>
-          <NavItem>
-            <Link to= '/login' className="nav-link d-flex align-items-center" onClick={handlelogout} style={{
-              height: "100%",       // Ensure the parent container height is utilized
-              justifyContent: "center", // Center the text horizontally
-              textAlign: "center",  // Ensure proper centering for text
-            }}>
-              Logout
-            </Link>
-          </NavItem>
-        </Nav>
-      </Collapse>
+        </NavItem>
+        <NavItem>
+          <Link
+            to="/login"
+            className="nav-link d-flex align-items-center"
+            onClick={handlelogout}
+            style={{
+              height: "100%",
+              justifyContent: "center",
+              textAlign: "center",
+            }}
+          >
+            Logout
+          </Link>
+        </NavItem>
+      </Nav>
     </Navbar>
   );
 };

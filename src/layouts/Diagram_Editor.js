@@ -156,51 +156,19 @@ const BpmnDiagram = forwardRef((props, ref) => {
   };
 
   return (
-    <div style={{ width: '95%', paddingTop: '3%' }}>
-      <h4>Step 1: </h4>
-      <div
-        id="canvas-wrapper"
-        style={{
-          width: '100%',
-          height: '85vh',
-          border: '1px solid black',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
-        }}
-      >
-        {/* Modeler Canvas */}
-        <div id="canvas" style={{ flex: 1, height: '100%' }}></div>
-
-        {/* Save Button */}
-        <img
-          src={saveButton}
-          alt="Save Diagram"
-          title="Save Diagram"
-          onClick={handleXMLSaveOnClick}
-          style={{
-            cursor: 'pointer',
-            width: '30px',
-            height: 'auto',
-            marginLeft: '10px', // Optional spacing between canvas and button
-          }}
-        />
-      <img 
-        src={newButton}
-        alt="Load Empty Bpmn" 
-        title="Load Empty Diagram"
-        onClick={openDiagram}
-        style={{
-          cursor: 'pointer',
-          width: '30px',
-          height: 'auto',
-        }}
-      />
-      <ImportDiagram onFileSelect={handleFileSelect} />
+    <div style={{ width: '95%', height: '95%' }}>
+      <div className="diagram-header">
+        <h4>Step 1: </h4>
+        <div className="button-group">
+          <button className="canva-button" alt="Save Diagram" title="Save Diagram" onClick={handleXMLSaveOnClick}>Save</button>
+          <button className="canva-button" alt="New Diagram" title="New Diagram" onClick={openDiagram}>New</button>
+          <ImportDiagram onFileSelect={handleFileSelect} />
+        </div>
       </div>
-      <br/>
+      <div id="canvas-wrapper">
+        <div id="canvas"></div>
+      </div>
       <div className="d-flex align-items-center">
-
         {popupSaveOpen && (
           <SavePopup 
             onClose={handleXMLSaveClosePopup} 
@@ -208,21 +176,9 @@ const BpmnDiagram = forwardRef((props, ref) => {
             info={diagramInfo}  // Pass diagramInfo to the popup
           />
         )}
-        {/* <img src={imageUrl} alt="Generated PlantUML Diagram" /> */}
       </div>
-      {/* <button onClick={handleNewDiagram} style={buttonStyle}>New Diagram</button> 
-      <button onClick={handleGenerate} style={buttonStyle}>Generate UX</button>  */}
     </div>
   );
 });
-
-const buttonStyle = {
-  backgroundColor: "#41C9E2",
-  padding: "8px 20px",
-  borderRadius: "4px",
-  border: "none",
-  cursor: "pointer",
-  marginRight: "10px", // Adds space between buttons
-};
 
 export default BpmnDiagram;

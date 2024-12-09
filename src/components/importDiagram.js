@@ -22,18 +22,7 @@ function ImportDiagram({ onFileSelect }) {
 
   return (
     <div>
-      <img 
-    src={uploadButton}
-    alt="Upload Bpmn"
-    title="Upload Diagram"
-    onClick={handleButtonClick}
-    //style={{ cursor: 'pointer', width: '30px', height: 'auto', marginLeft: '750px'}} 
-    style={{
-      cursor: 'pointer',
-      width: '30px',
-      height: 'auto',
-    }}
-  />
+      <button className="canva-button" alt="Upload Diagram" title="Upload Diagram" onClick={handleButtonClick}>Upload</button>
       <input
         type="file"
         ref={fileInputRef}

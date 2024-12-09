@@ -90,7 +90,7 @@ const Dashboard = forwardRef ((props, ref) => {
 
   return (
     <div className="p-3 dashboard">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid black'}}>
+      <div className="dashboard-sidebar">
         <h2>Dashboard</h2>
         <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
           <img
