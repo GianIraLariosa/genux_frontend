@@ -13,6 +13,7 @@ const Dashboard = forwardRef ((props, ref) => {
   const [selectedWireframe, setSelectedWireframe] = useState(null);
   const { user_id } = useContext(UserContext);
   const [popupOpen, setPopupOpen] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   const fetchDiagrams = () => {
     if (user_id) {
@@ -91,9 +92,58 @@ const Dashboard = forwardRef ((props, ref) => {
   return (
     <div className="p-3 dashboard">
       <div className="dashboard-sidebar">
-        <h2>Dashboard</h2>
-        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-          <img
+        <h2 style = {{ marginTop: '20px'}}>Dashboard</h2>
+        <div style={{ display: 'flex', justifyContent: 'flex-end',flexDirection:'column', alignItems: 'flex-end', position:'relative'}}>
+        <div
+            style={{
+              position: "relative",
+              top: "5px",
+              left: "10px",
+              cursor: "pointer",
+              zIndex: 0,
+            }}
+            onMouseEnter={() => setShowTooltip(true)}
+            onMouseLeave={() => setShowTooltip(false)}
+          >
+            <div
+              style={{
+                width: "20px",
+                height: "25px",
+                borderRadius: "50%",
+                backgroundColor: "#007bff",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                color: "white",
+                fontWeight: "bold",
+              }}
+            >
+              i
+            </div>
+            {showTooltip && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "60px",
+                  center: "0px",
+                  backgroundColor: "black",
+                  color: "white",
+                  padding: "5px 10px",
+                  borderRadius: "5px",
+                  whiteSpace: "nowrap",
+                  fontSize: "12px",
+                  zIndex: 20,
+                }}
+              >
+                Locally saved diagrams and wireframes are displayed here.
+              </div>
+            )}
+          </div>
+          
+        </div>
+      </div>
+      <div className="d-flex flex-column align-items-center" style={{marginTop: '10px'}}>
+      {/* <img
             src={refreshButton}
             alt="Refresh"
             onClick={refreshDashboard}
@@ -101,12 +151,10 @@ const Dashboard = forwardRef ((props, ref) => {
               cursor: 'pointer',
               width: '25px',
               height: 'auto',
-              marginBottom: '10px'
+              marginBottom: '10px',
+              marginLeft:'100px',
             }}
-          />
-        </div>
-      </div>
-      <div className="d-flex flex-column align-items-center" style={{marginTop: '10px'}}>
+          /> */}
         <h3>Diagrams</h3>
         <ul className="dashboard-list" style={listStyle}>
           {diagrams.length > 0 ? (
@@ -121,7 +169,7 @@ const Dashboard = forwardRef ((props, ref) => {
               </li>
             ))
           ) : (
-            <li>No diagrams available</li>
+            <li>No saved diagrams</li>
           )}
         </ul>
 
@@ -142,7 +190,7 @@ const Dashboard = forwardRef ((props, ref) => {
               </li>
             ))
           ) : (
-            <li>No wireframes available</li>
+            <li>No saved wireframes</li>
           )}
         </ul>
       </div>

@@ -38,6 +38,7 @@ const BpmnDiagram = forwardRef((props, ref) => {
   const { user_id } = useContext(UserContext); 
   const [imageUrl, setImageUrl] = useState('');
   const navigate = useNavigate();
+  const [zoomLevel, setZoomLevel] = useState(1);
   
 
   const openDiagram = async () => {
@@ -155,18 +156,50 @@ const BpmnDiagram = forwardRef((props, ref) => {
     openImportedDiagram(content);
   };
 
+  const handleZoomIn = () => {
+    const canvas = modeler.current.get('canvas');
+    const newZoom = Math.min(zoomLevel + 0.2, 2); 
+    canvas.zoom(newZoom);
+    setZoomLevel(newZoom);
+  };
+
+  const handleZoomOut = () => {
+    const canvas = modeler.current.get('canvas');
+    const newZoom = Math.max(zoomLevel - 0.2, 0.2); 
+    canvas.zoom(newZoom);
+    setZoomLevel(newZoom);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === '=') {
+        handleZoomIn();
+      } else if (event.key === '-') {
+        handleZoomOut();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [zoomLevel]);
+
   return (
     <div style={{ width: '95%', height: '95%' }}>
       <div className="diagram-header">
         <h4>Step 1: </h4>
         <div className="button-group">
+        <button className="canva-button" alt="Zoom in" title ="Zoom in" onClick={handleZoomIn}>+</button>
+        <button className="canva-button" alt="Zoom out" title ="Zoom out" onClick={handleZoomOut}>-</button>
           <button className="canva-button" alt="Save Diagram" title="Save Diagram" onClick={handleXMLSaveOnClick}>Save</button>
           <button className="canva-button" alt="New Diagram" title="New Diagram" onClick={openDiagram}>New</button>
           <ImportDiagram onFileSelect={handleFileSelect} />
         </div>
       </div>
       <div id="canvas-wrapper">
-        <div id="canvas"></div>
+        <div id="canvas" style={{ width: '100%', height: height }} ></div>
       </div>
       <div className="d-flex align-items-center">
         {popupSaveOpen && (
