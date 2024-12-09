@@ -61,90 +61,95 @@ const Registration = () => {
   };
 
   return (
-    <Row style={{ justifyContent: 'center' }}>
-      <Col style={{ maxWidth: '800px' }}>
+    <Row className="justify-content-center">
+      <Col style={{ maxWidth: '500px' }}>
         <Card>
-        <CardTitle
-            tag="h2"
-            className="p-3 mb-0"
-            style={{ textAlign: "center", color: "#008DDA", borderBottom: "1px solid #41C9E2" }}
-          >
-          <img
-                src={UXLogo}
-                alt="profile"
-                className="rounded-circle"
-                width="75"
-              ></img>
+          <CardTitle className="card-title">
+            <img
+              src={UXLogo}
+              alt="profile"
+              width="75"
+            />
             Start your journey now, here at Act2State!
           </CardTitle>
           <CardBody>
             <Form onSubmit={handleSubmit}>
               <FormGroup>
-                <Label style={{ color: '#008DDA', display: 'block' }} for="firstName">First Name</Label>
+                <Label className="label" htmlFor="firstName">
+                  First Name
+                </Label>
                 <Input
                   type="text"
                   id="firstName"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   required
-                  style={{ ...inputStyle }}
+                  className="input"
                 />
               </FormGroup>
               <FormGroup>
-                <Label style={{ color: '#008DDA', display: 'block' }} for="lastName">Last Name</Label>
+                <Label className="label" htmlFor="lastName">
+                  Last Name
+                </Label>
                 <Input
                   type="text"
                   id="lastName"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   required
-                  style={{ ...inputStyle }}
+                  className="input"
                 />
               </FormGroup>
               <FormGroup>
-                <Label style={{ color: '#008DDA', display: 'block' }} for="username">Username</Label>
+                <Label className="label" htmlFor="username">
+                  Username
+                </Label>
                 <Input
                   type="text"
                   id="username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   required
-                  style={{ ...inputStyle }}
+                  className="input"
                 />
               </FormGroup>
               <FormGroup>
-                <Label style={{ color: "#008DDA", display: "block" }} for="password">
+                <Label className="label" htmlFor="password">
                   Password
                 </Label>
                 <Input
                   type="password"
+                  id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  minLength={8} // Enforce a minimum length
+                  minLength={8}
                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&]).{6,}"
                   title="Password must be at least 8 characters long and include a mix of uppercase, lowercase, numbers, and special characters."
-                  style={{ ...inputStyle }}
+                  className="input"
                 />
-                <small style={{ color: "gray", fontSize: "0.8rem" }}>
+                <small className="password-hint">
                   Password must be at least 6 characters long, include uppercase and lowercase letters, a number, and a special character.
                 </small>
               </FormGroup>
-              <div style={{ textAlign: 'center', marginTop: '10px' }}>
-                <p style={{ display: 'inline', textDecoration: 'none', color: '#000000', marginRight: '5px' }}>Already have an account?</p>
-                <a href="/#/login" style={{ textDecoration: 'none', color: '#41C9E2' }}>Login!</a>
+              <div className="link-container">
+                <p className="normal-link">
+                  Already have an account?
+                </p>
+                <a href="/#/login" className="link">
+                  Login!
+                </a>
               </div>
-              <div style={{ textAlign: 'center' }}>
+              <div className="text-center">
                 <Button
-                  className="mt-2"
-                  style={{ ...buttonStyle}}
+                  className="submit-button mt-2"
                   type="submit"
                 >
                   Submit
                 </Button>
               </div>
             </Form>
-            {message && <p style={{ color: 'green', textAlign: 'center', marginTop: '10px' }}>{message}</p>}
+            {message && <p className="message">{message}</p>}
           </CardBody>
         </Card>
       </Col>

@@ -1,0 +1,10 @@
+// _mixins.scss
+@mixin media-breakpoint-down($breakpoint) {
+    @if $breakpoint == lg {
+      @media (max-width: 991.98px) {
+        @content;
+      }
+    }
+    // Add other breakpoints as needed
+  }
+  

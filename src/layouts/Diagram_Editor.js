@@ -157,6 +157,7 @@ const BpmnDiagram = forwardRef((props, ref) => {
 
   return (
     <div style={{ width: '95%', paddingTop: '3%' }}>
+      <h4>Step 1: </h4>
       <div
         id="canvas-wrapper"
         style={{

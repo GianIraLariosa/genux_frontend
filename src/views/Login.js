@@ -42,26 +42,21 @@ const Login = () => {
 
 
   return (
-    <Row style={{ justifyContent: 'center' }}>
-      <Col style={{ maxWidth: '800px' }}>
+    <Row className="justify-content-center">
+      <Col style={{maxWidth: '500px'}}>
         <Card>
-          <CardTitle
-            tag="h2"
-            className="p-3 mb-0"
-            style={{ textAlign: "center", color: "#008DDA", borderBottom: "1px solid #41C9E2" }}
-          >
+          <CardTitle className="card-title">
             <img
-                src={UXLogo}
-                alt="profile"
-                className="rounded-circle"
-                width="75"
-              ></img>
+              src={UXLogo}
+              alt="profile"
+              width="75"
+            />
             Welcome to Act2State!
           </CardTitle>
           <CardBody>
             <Form onSubmit={handleLogin}>
               <FormGroup>
-                <Label style={{ color: "#008DDA", display: "block" }} for="username">
+                <Label className="label" htmlFor="username">
                   Username
                 </Label>
                 <Input
@@ -69,11 +64,11 @@ const Login = () => {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   required
-                  style={{ ...inputStyle }}
+                  className="input"
                 />
               </FormGroup>
               <FormGroup>
-                <Label style={{ color: "#008DDA", display: "block" }} for="password">
+                <Label className="label" htmlFor="password">
                   Password
                 </Label>
                 <Input
@@ -81,24 +76,24 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  style={{ ...inputStyle }}
+                  className="input"
                 />
               </FormGroup>
-              <div style={linkContainerStyle}>
-                <p style={normalLinkStyle}>
-                  Don't have an account?
-                </p>
-                <a href="/register" style={linkStyle}>
+              
+              <div className="link-container">
+                <p className="normal-link">Don't have an account?</p>
+                <a href="/register" className="link">
                   Register Now!
                 </a>
               </div>
+
               <div style={{ textAlign: "center" }}>
-                <Button type="submit" style={buttonStyle}>
+                <Button type="submit" className="submit-button">
                   Submit
                 </Button>
               </div>
             </Form>
-            <p style={messageStyle}>{message}</p>
+            <p className="message">{message}</p>
           </CardBody>
         </Card>
       </Col>
@@ -106,44 +101,5 @@ const Login = () => {
   );
 };
 
-const inputStyle = {
-  width: "100%",
-  padding: "5px",
-  borderRadius: "4px",
-  border: "1px solid #41C9E2",
-};
-
-const linkContainerStyle = {
-  textAlign: "center",
-  marginTop: "10px",
-};
-
-const normalLinkStyle = {
-  display: "inline",
-  textDecoration: "none",
-  color: "#000000",
-  marginRight: "5px",
-};
-
-const linkStyle = {
-  display: "inline",
-  textDecoration: "none",
-  color: "#41C9E2",
-  marginRight: "5px",
-};
-
-const buttonStyle = {
-  backgroundColor: "#41C9E2",
-  padding: "8px 20px",
-  borderRadius: "4px",
-  border: "none",
-  cursor: "pointer",
-};
-
-const messageStyle = {
-  color: "#008DDA",
-  textAlign: "center",
-  marginTop: "10px",
-};
 
 export default Login;

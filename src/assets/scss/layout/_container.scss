@@ -1,8 +1,11 @@
+@import '../_variables.scss';
+@import '../utils/mixins';
+
 .pageWrapper {
   display: flex;
   flex-direction: column; // Header at the top, content below
   height: 100vh; // Full viewport height
-  background-color: #ffffff;
+  background-color: $background;
 }
 
 .contentArea {
@@ -18,11 +21,10 @@
 
 .sidebarArea {
   flex-shrink: 0;
-  border-right: 1px solid black;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   .sidenav-bg:hover {
-    background-color: $gray-100;
+    background-color: $background;
     border-radius: $border-radius;
   }
 }
@@ -85,13 +87,13 @@
   margin-bottom: 10px; /* Add space between list items */
 }
 
-.dashboard-button {
-  background-color: #41C9E2;
+.dashboard-button2 {
+  color: $secondary;
+  background-color: white;
   width: 100%; /* Set the button to 100% of its parent's width */
-  color: #F7EEDD;
   padding: 5px 20px; /* Adjust padding for better spacing */
-  border-radius: 4px;
-  border: none;
+  border: 2px solid $primary;
+  border-radius: 20px;
   cursor: pointer;
   text-align: center; /* Center the text within the button */
   display: block; /* Make the button behave like a block element to take full width */
@@ -118,11 +120,193 @@
   text-align: center;
 }
 
+.dashboard {
+  border: 2px solid $primary;
+  border-radius: 10px;
+}
+
 .close-button {
-  background-color: red;
-  color: white;
-  border: none;
+  margin-right: 5px;
+  background: transparent;
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 2px 6px;
+  cursor: pointer;
+  color: red;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.content-area {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-start;
+  background-color: $background;
+  height: 100%;
+}
+
+.sidebar-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 5px;
+  border-right: 1px solid black;
+}
+
+.diagram-container {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $background;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.editor-container {
+  width: 35%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $background;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-left: 20px;
+  overflow-y: auto;
+}
+
+// .button {
+//   padding: 10px 20px;
+//   background-color: $background;
+//   color: #fff;
+//   border: none;
+//   border-radius: 5px;
+//   cursor: pointer;
+//   width: 150px;
+//   text-align: center;
+//   margin-top: 30px;
+//   margin-right: 10px;
+//   margin-bottom: 10px;
+// }
+
+.card-title {
+  text-align: center;
+  color: $primary;
+  border-bottom: 1px solid $primary;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid $tertiary;
+  border-radius: 10px;
   padding: 10px;
+  margin-top: 20px;
+}
+
+.image-dashboard {
+  height: auto;
+  padding: 1px;
+}
+
+.loading-text {
+  font-size: 18px;
+  color: $tertiary;
+  margin-top: 20px;
+}
+
+.input {
+  width: 100%;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid $primary;
+}
+
+.link-container {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.normal-link {
+  display: inline;
+  text-decoration: none;
+  color: $secondary;
+  margin-right: 5px;
+}
+
+.link {
+  display: inline;
+  text-decoration: none;
+  color: $info;
+  margin-right: 5px;
+}
+
+.button {
+  background-color: $primary;
+  padding: 8px 20px;
+  border-radius: 4px;
+  border: none;
   cursor: pointer;
 }
 
+.message {
+  color: $primary;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.label {
+  color: $primary;
+  display: "block";
+}
+
+.submit-button{
+  color: $secondary;
+  background-color: white;
+  padding: 8px 50px;
+  border: 2px solid $primary;
+  border-radius: 20px;
+  border: "none";
+  cursor: pointer;
+}
+
+.generate-button {
+  color: $secondary; 
+  background-color: white;
+  padding: 10px 20px;
+  border: 2px solid $primary;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 150px;
+  text-align: center;
+  margin-top: 30px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.title-style{
+  color: $primary;
+  background-color: white;
+  padding: 8px 50px;
+  border: 2px solid $primary;
+  border-radius: 20px;
+  border: "none";
+}
+
+.dashboard-button {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  margin: 1px;
+  border-radius: 20px;
+  transform: rotate(var(--rotation, 0deg));  // Default to 0deg if no custom property is set
+  transition: transform 0.3s ease;
+}

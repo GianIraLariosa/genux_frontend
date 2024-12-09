@@ -89,7 +89,7 @@ const Dashboard = forwardRef ((props, ref) => {
   }));
 
   return (
-    <div className="p-3" style={{border: '1px solid black' }}>
+    <div className="p-3 dashboard">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '2px solid black'}}>
         <h2>Dashboard</h2>
         <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
@@ -101,7 +101,6 @@ const Dashboard = forwardRef ((props, ref) => {
               cursor: 'pointer',
               width: '25px',
               height: 'auto',
-              marginLeft: '10px',
               marginBottom: '10px'
             }}
           />
@@ -113,29 +112,10 @@ const Dashboard = forwardRef ((props, ref) => {
           {diagrams.length > 0 ? (
             diagrams.map((diagram, index) => (
               <li key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                <button 
-                  className="close-button" 
-                  onClick={() => handleDeleteDiagram(diagram.name)} 
-                  style={{
-                    marginRight: '5px',
-                    background: 'transparent',
-                    border: '1px solid black',
-                    borderRadius: '4px',
-                    padding: '2px 6px',
-                    cursor: 'pointer',
-                    color: 'red',
-                    fontSize: '18px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: '20px',
-                    height: '20px',
-                    lineHeight: '20px',
-                    textAlign: 'center',
-                  }}>
+                <button className="close-button" onClick={() => handleDeleteDiagram(diagram.name)} >
                   &times;
                 </button>
-                <button className="dashboard-button" onClick={() => handleDiagramClick(diagram?.bpmn)}>
+                <button className="dashboard-button2" onClick={() => handleDiagramClick(diagram?.bpmn)}>
                   {diagram.name}
                 </button>
               </li>
@@ -153,25 +133,10 @@ const Dashboard = forwardRef ((props, ref) => {
                 <button 
                   className="close-button" 
                   onClick={() => handleDeleteWireframe(wireframe.title)} 
-                  style={{
-                    marginRight: '5px',
-                    background: 'transparent',
-                    borderRadius: '4px',
-                    padding: '2px 6px',
-                    cursor: 'pointer',
-                    color: 'red',
-                    fontSize: '18px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: '20px',
-                    height: '20px',
-                    lineHeight: '20px',
-                    textAlign: 'center',
-                  }}>
+                  >
                   &times;
                 </button>
-                <button className="dashboard-button" onClick={() => handleWireframeClick(wireframe)}>
+                <button className="dashboard-button2" onClick={() => handleWireframeClick(wireframe)}>
                   {wireframe.title}
                 </button>
               </li>

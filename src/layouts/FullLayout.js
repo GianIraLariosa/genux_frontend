@@ -11,7 +11,6 @@ import { minHeight, padding } from "@mui/system";
 import { useLocation, useNavigate, Route, Routes } from 'react-router-dom';
 import { Atom, OrbitProgress, ThreeDot } from "react-loading-indicators";
 import classNames from "classnames";
-import './button_style.css';
 
 const FullLayout = () => {
   const [isDashboardVisible, setIsDashboardVisible] = useState(false);
@@ -165,14 +164,10 @@ const FullLayout = () => {
               src={toggleIcon}
               alt={isDashboardVisible ? "Hide Dashboard" : "Show Dashboard"}
               onClick={toggleDashboard}
-              className="toggleImageButton"
+              className="image-dashboard dashboard-button"
               style={{
-                cursor: "pointer",
-                width: "30px",
-                height: "30px",
-                margin: "5px",
-                transform: `rotate(${rotation}deg)`,
-                transition: "transform 0.3s ease",
+                // Inline styles for dynamic rotation using CSS custom properties
+                '--rotation': `${rotation}deg`,
               }}
             />
             {isDashboardVisible && (
@@ -187,10 +182,11 @@ const FullLayout = () => {
               <BpmnDiagram ref={bpmnRef} />
             {/* </div> */}
           </div>
-
+          
           <div style={editorContainerStyle}>
-            <div className={classNames('trapezoidal')}>
-                Generated State Diagram
+          <h4>Step 2</h4>
+            <div>
+                <p className="title-style">Generated State Diagram</p>
             </div>
             <MonacoEditor
               height="250px"
@@ -204,11 +200,11 @@ const FullLayout = () => {
             <div style={{ display: 'flex', gap: '10px' }}>
               <button 
                 onClick={generateUX_button} 
-                className={classNames('button1', { 'buttonDisabled': generating })}
+                className={classNames('generate-button', { 'buttonDisabled': generating })}
                 disabled={generating}>
                   {buttonContent}
               </button>
-              <button onClick={handleUpdateImageClick} style={styles.button}>
+              <button className="generate-button" onClick={handleUpdateImageClick} >
                 Update Image
               </button>
             </div>
@@ -219,7 +215,7 @@ const FullLayout = () => {
               placeholder="Enter wireframe title" 
               value={wireframeTitle}
               onChange={(e) => setWireframeTitle(e.target.value)} 
-              style={styles.input}
+              className="input"
             />
             </div>
 
@@ -230,10 +226,10 @@ const FullLayout = () => {
             )}
 
         <div>
-            <button onClick={handleSaveLocal} style={styles.button}>
+            <button onClick={handleSaveLocal} className="generate-button">
               Save Locally
             </button>
-            <button onClick={handleSaveWireframe} style={styles.button}>
+            <button onClick={handleSaveWireframe} className="generate-button">
               Save UX
             </button>
         </div>
