@@ -15,6 +15,7 @@ import {
 } from "reactstrap";
 import { UserContext } from "../Usercontext";
 import UXLogo from "../assets/images/logos/Act2State.png";
+import backgroundIMG from "../assets/images/bg/seaside2.jpg";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -42,18 +43,24 @@ const Login = () => {
 
 
   return (
-    <Row className="justify-content-center">
-      <Col style={{maxWidth: '500px'}}>
-        <Card>
-          <CardTitle className="card-title">
-            <img
-              src={UXLogo}
-              alt="profile"
-              width="75"
-            />
-            Welcome to Act2State!
-          </CardTitle>
-          <CardBody>
+    <Row className="justify-content-center align-items-center vh-100">
+      <Col xs={12} style={{ display: 'flex', padding: '0' }}>
+        {/* Left CardBody with Background Image */}
+        <Card className="card-image"
+          style={{
+            backgroundImage: `url(${backgroundIMG})`,
+          }}
+        >
+          <CardBody
+          ></CardBody>
+        </Card>
+
+        {/* Right CardBody with the Login Form */}
+        <Card className="card-input">
+          <CardBody className="card-body">
+            <CardTitle className="card-title text-center">
+              <h2 style={{ marginTop: '20px' }}>Welcome to Act2State!</h2>
+            </CardTitle>
             <Form onSubmit={handleLogin}>
               <FormGroup>
                 <Label className="label" htmlFor="username">
@@ -79,7 +86,7 @@ const Login = () => {
                   className="input"
                 />
               </FormGroup>
-              
+
               <div className="link-container">
                 <p className="normal-link">Don't have an account?</p>
                 <a href="/register" className="link">
@@ -87,11 +94,15 @@ const Login = () => {
                 </a>
               </div>
 
-              <div style={{ textAlign: "center" }}>
-                <Button type="submit" className="submit-button">
+              <div className="text-center">
+                <Button
+                  className="submit-button mt-2"
+                  type="submit"
+                >
                   Submit
                 </Button>
               </div>
+              
             </Form>
             <p className="message">{message}</p>
           </CardBody>

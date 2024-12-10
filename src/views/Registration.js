@@ -12,6 +12,8 @@ import {
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import UXLogo from "../assets/images/logos/Act2State.png";
+import backgroundIMG from "../assets/images/bg/seaside2.jpg";
+
 const Registration = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -61,18 +63,24 @@ const Registration = () => {
   };
 
   return (
-    <Row className="justify-content-center">
-      <Col style={{ maxWidth: '500px' }}>
-        <Card>
-          <CardTitle className="card-title">
-            <img
-              src={UXLogo}
-              alt="profile"
-              width="75"
-            />
-            Start your journey now, here at Act2State!
-          </CardTitle>
-          <CardBody>
+    <Row className="justify-content-center align-items-center vh-100">
+      <Col xs={12} style={{ display: 'flex', padding: '0' }}>
+        {/* Left CardBody with Background Image */}
+        <Card className="card-image"
+          style={{
+            backgroundImage: `url(${backgroundIMG})`,
+          }}
+        >
+          <CardBody
+          ></CardBody>
+        </Card>
+
+        {/* Right CardBody with the Login Form */}
+        <Card className="card-input">
+          <CardBody className="card-body" style={{padding: '15%'}}>
+            <CardTitle className="card-title">
+              <h2 style={{ marginTop: '20px' }}>Start your journey now!</h2>
+            </CardTitle>
             <Form onSubmit={handleSubmit}>
               <FormGroup>
                 <Label className="label" htmlFor="firstName">
@@ -125,7 +133,6 @@ const Registration = () => {
                   required
                   minLength={8}
                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&]).{6,}"
-                  title="Password must be at least 8 characters long and include a mix of uppercase, lowercase, numbers, and special characters."
                   className="input"
                 />
                 <small className="password-hint">
@@ -140,6 +147,7 @@ const Registration = () => {
                   Login!
                 </a>
               </div>
+
               <div className="text-center">
                 <Button
                   className="submit-button mt-2"
@@ -148,6 +156,7 @@ const Registration = () => {
                   Submit
                 </Button>
               </div>
+
             </Form>
             {message && <p className="message">{message}</p>}
           </CardBody>
@@ -155,21 +164,6 @@ const Registration = () => {
       </Col>
     </Row>
   );
-};
-
-const inputStyle = {
-  width: "100%",
-  padding: "5px",
-  borderRadius: "4px",
-  border: "1px solid #41C9E2",
-};
-
-const buttonStyle = {
-  backgroundColor: "#41C9E2",
-  padding: "8px 20px",
-  borderRadius: "4px",
-  border: "none",
-  cursor: "pointer",
 };
 
 export default Registration;

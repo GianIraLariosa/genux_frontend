@@ -364,3 +364,48 @@
   transform: rotate(var(--rotation, 0deg));  // Default to 0deg if no custom property is set
   transition: transform 0.3s ease;
 }
+
+.Outsidelayout-background {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.card-body {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;  // Stack items vertically
+  justify-content: center; // Center items vertically
+  align-items: center;     // Center items horizontally
+  height: 100%;
+}
+
+.card-input {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);  // Subtle shadow for depth
+  width: 40%;  // Half width for the right side
+  height: 80vh;  // Full height of the viewport
+  border-top: 5px solid black;
+  border-right: 5px solid black;
+  border-bottom: 5px solid black;
+  border-left: none;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.card-image {
+  background-size: 200%;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 60%;  // Half width for the left side
+  height: 80vh;  // Full height of the viewport
+  border-top: 5px solid black;
+  border-right: none;
+  border-bottom: 5px solid black;
+  border-left: 5px solid black;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
