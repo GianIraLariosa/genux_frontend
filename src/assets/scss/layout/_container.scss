@@ -9,11 +9,14 @@
 }
 
 .contentArea {
-  flex-grow: 1; /* Make this area take up the remaining space */
-  overflow: auto; /* Ensure content is scrollable if it overflows */
-  height: calc(100vh - 60px); /* Subtract the header height */
+  flex-grow: 1;
+  overflow: auto;
+  height: calc(100vh - 60px);
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .editorContainer {
   display: flex;
   height: 100vh; // Make it span the full viewport height
@@ -23,11 +26,22 @@
   flex-shrink: 0;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
+  width: var(--sidebar-width, 250px); // Default to 300px, can be overridden dynamically
+
+  @media (max-width: 768px) {
+    width: 200px; // Adjust width for smaller screens
+  }
+
+  @media (max-width: 480px) {
+    width: 150px; // Further adjust for very small screens
+  }
+
   .sidenav-bg:hover {
     background-color: $background;
     border-radius: $border-radius;
   }
 }
+
 
 .diagramArea {
   flex-grow: 1; // This will make the diagram area take the remaining space
@@ -123,7 +137,7 @@
 .dashboard {
   width: 95%;
   border: 2px solid $primary;
-  border-radius: 10px;
+  border-radius: 20px;
 }
 
 .close-button {
@@ -153,26 +167,26 @@
 }
 
 .sidebar-toggle {
+  height: 25%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   padding: 5px;
-  border-radius: 8px;
-  border: 3px solid $tertiary;
-  margin: 10px;
+  margin: auto;
 }
 
 .diagram-container {
+  height: 95%;
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
-  border-radius: 8px;
+  border-radius: 20px;
   border: 3px solid $tertiary;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  margin: 10px;
+  margin: auto;
 }
 
 .diagram-header {
@@ -194,7 +208,7 @@
 
 #canvas-wrapper {
   width: 100%;
-  height: 95%;
+  height: 90%;
   border: 2px solid $primary;
   border-radius: 10px;
   display: flex;
@@ -210,22 +224,25 @@
 
 .dashboard-sidebar {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   border-bottom: 3px solid black;
 }
 
 .editor-container {
-  width: 35%;
-  padding: 20px;
+  height: 95%;
+  width: 30%;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
   border: 3px solid $tertiary;
-  border-radius: 10px;
+  border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 10px;
+  margin: auto;
+  margin-left: 5px;
+  margin-right: 5px;
   overflow-y: auto;
 }
 
@@ -348,12 +365,13 @@
 }
 
 .title-style{
-  color: $primary;
-  background-color: white;
-  padding: 8px 50px;
-  border: 2px solid $primary;
-  border-radius: 20px;
+  color: white;
+  background-color: $primary;
+  padding: 5px 10px;
+  border-radius: 10px;
   border: "none";
+  margin-top: auto;
+  margin-bottom: 5px;
 }
 
 .dashboard-button {

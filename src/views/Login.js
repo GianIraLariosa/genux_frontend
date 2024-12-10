@@ -14,7 +14,6 @@ import {
   Input,
 } from "reactstrap";
 import { UserContext } from "../Usercontext";
-import UXLogo from "../assets/images/logos/Act2State.png";
 import backgroundIMG from "../assets/images/bg/seaside2.jpg";
 import { OrbitProgress } from "react-loading-indicators";
 

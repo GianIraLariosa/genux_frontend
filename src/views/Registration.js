@@ -11,7 +11,6 @@ import {
   Input } from 'reactstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import UXLogo from "../assets/images/logos/Act2State.png";
 import backgroundIMG from "../assets/images/bg/seaside2.jpg";
 import { OrbitProgress } from 'react-loading-indicators';
 
