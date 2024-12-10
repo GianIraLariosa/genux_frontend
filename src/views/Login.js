@@ -16,12 +16,14 @@ import {
 import { UserContext } from "../Usercontext";
 import UXLogo from "../assets/images/logos/Act2State.png";
 import backgroundIMG from "../assets/images/bg/seaside2.jpg";
+import { OrbitProgress } from "react-loading-indicators";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const { setUser_id, user_id } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -32,14 +34,25 @@ const Login = () => {
     }
 
     try {
+      setLoading(true);
       const { data: user } = await axios.post('https://genux-backend-9f3x.onrender.com/login', postData);
       setUser_id(user.id);
       console.log(user_id);
       navigate("/user");
     } catch (error) {
         setMessage("Invalid username or password.");
+    } finally {
+      setLoading(false);
     }
 };
+
+  const Loading = () => <OrbitProgress style={{ fontSize: "7px" }} color={"#7FA1C3"} />;
+
+  const buttonContent = loading ? (
+    <Loading />
+  ) : (
+    "Sign In"
+  );
 
 
   return (
@@ -87,20 +100,20 @@ const Login = () => {
                 />
               </FormGroup>
 
-              <div className="link-container">
-                <p className="normal-link">Don't have an account?</p>
-                <a href="/register" className="link">
-                  Register Now!
-                </a>
-              </div>
-
               <div className="text-center">
                 <Button
                   className="submit-button mt-2"
                   type="submit"
                 >
-                  Submit
+                  {buttonContent}
                 </Button>
+              </div>
+
+              <div className="link-container">
+                <p className="normal-link">Don't have an account?</p>
+                <a href="/register" className="link">
+                  Register Now!
+                </a>
               </div>
               
             </Form>

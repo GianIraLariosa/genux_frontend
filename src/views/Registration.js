@@ -13,6 +13,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import UXLogo from "../assets/images/logos/Act2State.png";
 import backgroundIMG from "../assets/images/bg/seaside2.jpg";
+import { OrbitProgress } from 'react-loading-indicators';
 
 const Registration = () => {
   const [username, setUsername] = useState('');
@@ -20,6 +21,7 @@ const Registration = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const axiosPostData = async() => {
@@ -31,10 +33,16 @@ const Registration = () => {
     }
 
     try{
+      setLoading(true);
       await axios.post('https://genux-backend-9f3x.onrender.com/registration', postData)
-        .then(res => setMessage(<p>{res.data}</p>));
+        .then(res => 
+          // setMessage(<p>{res.data}</p>)
+          navigate('/login')
+        );
     } catch (error) {
       setMessage('Error');
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -62,6 +70,14 @@ const Registration = () => {
     await axiosPostData();
   };
 
+  const Loading = () => <OrbitProgress style={{ fontSize: "7px" }} color={"#7FA1C3"} />;
+
+  const buttonContent = loading ? (
+    <Loading />
+  ) : (
+    "Register"
+  );
+
   return (
     <Row className="justify-content-center align-items-center vh-100">
       <Col xs={12} style={{ display: 'flex', padding: '0' }}>
@@ -69,6 +85,8 @@ const Registration = () => {
         <Card className="card-image"
           style={{
             backgroundImage: `url(${backgroundIMG})`,
+            minHeight: '600px'
+
           }}
         >
           <CardBody
@@ -76,7 +94,7 @@ const Registration = () => {
         </Card>
 
         {/* Right CardBody with the Login Form */}
-        <Card className="card-input">
+        <Card className="card-input" style={{ minHeight: '600px' }}>
           <CardBody className="card-body" style={{padding: '15%'}}>
             <CardTitle className="card-title">
               <h2 style={{ marginTop: '20px' }}>Start your journey now!</h2>
@@ -139,6 +157,16 @@ const Registration = () => {
                   Password must be at least 6 characters long, include uppercase and lowercase letters, a number, and a special character.
                 </small>
               </FormGroup>
+
+              <div className="text-center">
+                <Button
+                  className="submit-button mt-2"
+                  type="submit"
+                >
+                  {buttonContent}
+                </Button>
+              </div>
+
               <div className="link-container">
                 <p className="normal-link">
                   Already have an account?
@@ -146,15 +174,6 @@ const Registration = () => {
                 <a href="/#/login" className="link">
                   Login!
                 </a>
-              </div>
-
-              <div className="text-center">
-                <Button
-                  className="submit-button mt-2"
-                  type="submit"
-                >
-                  Submit
-                </Button>
               </div>
 
             </Form>
