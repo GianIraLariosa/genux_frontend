@@ -187,9 +187,9 @@ const BpmnDiagram = forwardRef((props, ref) => {
   }, [zoomLevel]);
 
   return (
-    <div style={{ alignItems: 'center', justifyContent: 'center', width: '95%', height: '95%' }}>
+    <div style={{ alignItems: 'center', justifyContent: 'center', width: '95%', height: '95%', margin: 'auto' }}>
       <div className="diagram-header">
-        <h4>Step 1: </h4>
+        <p className="title-style">Step 1: Create an Activity Diagram</p>
         <div className="button-group">
           <button className="canva-edit-button" alt="Zoom in" title ="Zoom in" onClick={handleZoomIn}>+</button>
           <button className="canva-edit-button" alt="Zoom out" title ="Zoom out" onClick={handleZoomOut}>-</button>

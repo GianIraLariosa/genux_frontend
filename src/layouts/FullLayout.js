@@ -182,57 +182,63 @@ const FullLayout = () => {
           </div>
           
           <div className="editor-container">
-          <h4>Step 2</h4>
-            <div>
-                <p className="title-style">State Diagram</p>
-            </div>
-            <div className="monaco-container">
-              <MonacoEditor
-                height="250px"
-                width="100%"
-                defaultLanguage="plaintext"
-                value={code}
-                onChange={handleEditorChange}
-                options={{ fontSize: 14, minimap: { enabled: false } }}
-              />
-            </div>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <button 
-                onClick={generateUX_button} 
-                className={classNames('generate-button', { 'buttonDisabled': generating })}
-                disabled={generating}>
+
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: 'auto' }}>
+              <div>
+                <p className="title-style">Step 2: Activity Diagram to State Diagram UML Script</p>
+              </div>
+              <div className="monaco-container">
+                <MonacoEditor
+                  height="250px"
+                  width="100%"
+                  defaultLanguage="plaintext"
+                  value={code}
+                  onChange={handleEditorChange}
+                  options={{ fontSize: 14, minimap: { enabled: false } }}
+                />
+              </div>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <button 
+                  onClick={generateUX_button} 
+                  className={classNames('generate-button', { 'buttonDisabled': generating })}
+                  disabled={generating}>
                   {buttonContent}
-              </button>
-              <button className="generate-button" onClick={handleUpdateImageClick} >
-                Update Image
-              </button>
+                </button>
+                <button className="generate-button" onClick={handleUpdateImageClick}>
+                  Update Image
+                </button>
+              </div>
+              <div>
+                <p className="title-style">Step 3: Generate State Diagram Image</p>
+              </div>
+              <div>
+                <input 
+                  type="text" 
+                  placeholder="Enter wireframe title" 
+                  value={wireframeTitle}
+                  onChange={(e) => setWireframeTitle(e.target.value)} 
+                  className="input"
+                />
+              </div>
+              {imageUrl ? (
+                <img src={imageUrl} alt="Generated State Diagram" style={styles.image} />
+              ) : (
+                <p style={styles.loadingText}>Loading diagram...</p>
+              )}
+              <div>
+                <button onClick={handleSaveLocal} className="generate-button">
+                  Save Locally
+                </button>
+                <button onClick={handleSaveWireframe} className="generate-button">
+                  Save UX
+                </button>
+              </div>
             </div>
 
-            <div>
-            <input 
-              type="text" 
-              placeholder="Enter wireframe title" 
-              value={wireframeTitle}
-              onChange={(e) => setWireframeTitle(e.target.value)} 
-              className="input"
-            />
-            </div>
 
-            {imageUrl ? (
-              <img src={imageUrl} alt="Generated State Diagram" style={styles.image} />
-            ) : (
-              <p style={styles.loadingText}>Loading diagram...</p>
-            )}
-
-        <div>
-            <button onClick={handleSaveLocal} className="generate-button">
-              Save Locally
-            </button>
-            <button onClick={handleSaveWireframe} className="generate-button">
-              Save UX
-            </button>
-        </div>
           </div>
+
+
         </div>
       </div>
     </main>
