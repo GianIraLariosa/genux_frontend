@@ -69,7 +69,7 @@ const FullLayout = () => {
     }
   };
 
-  const Loading = () => <OrbitProgress style={{ fontSize: "7px" }} color={"white"} />;
+  const Loading = () => <OrbitProgress style={{ fontSize: "7px" }} color={"#7FA1C3"} />;
 
   const buttonContent = generating ? (
     <Loading />
@@ -186,9 +186,9 @@ const FullLayout = () => {
             <div>
                 <p className="title-style">State Diagram</p>
             </div>
-            <div className="monaco-container">
+            <div className="monaco-container" style={{ minHeight: "300px" }}>
               <MonacoEditor
-                height="250px"
+                minHeight="250px"
                 width="100%"
                 defaultLanguage="plaintext"
                 value={code}

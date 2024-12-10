@@ -15,6 +15,7 @@ export const generateUX = async ({ setgenerateInfo, user_id, setGenerating, xml,
       const data = parseXML(xml);
       const plantUML = translateToPlantUML(data);
 
+      console.log(plantUML);
       //save the data into a class
       const generateInfo = new DiagramInfo(user_id, xml, "", plantUML);
 
@@ -62,7 +63,8 @@ export const generateUX = async ({ setgenerateInfo, user_id, setGenerating, xml,
     //   const newResponse = await axios.post('https://genux-backend-9f3x.onrender.com/api/generate-plantuml', { script: generatedText });
     //   const imageUrl = newResponse.data.imageUrl;
     //   navigate('/PlantUMLResult', { state: { imageUrl } });
-    return generatedText
+    console.log(generatedText.trim().replace(/^```plantuml\s*/, '').replace(/\s*```$/, ''));
+    return generatedText.trim().replace(/^```plantuml\s*/, '').replace(/\s*```$/, '');
 
     } catch(err) {
       console.log("error", err);
