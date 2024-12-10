@@ -187,19 +187,19 @@ const BpmnDiagram = forwardRef((props, ref) => {
   }, [zoomLevel]);
 
   return (
-    <div style={{ width: '95%', height: '95%' }}>
+    <div style={{ alignItems: 'center', justifyContent: 'center', width: '95%', height: '95%' }}>
       <div className="diagram-header">
         <h4>Step 1: </h4>
         <div className="button-group">
-        <button className="canva-button" alt="Zoom in" title ="Zoom in" onClick={handleZoomIn}>+</button>
-        <button className="canva-button" alt="Zoom out" title ="Zoom out" onClick={handleZoomOut}>-</button>
+          <button className="canva-edit-button" alt="Zoom in" title ="Zoom in" onClick={handleZoomIn}>+</button>
+          <button className="canva-edit-button" alt="Zoom out" title ="Zoom out" onClick={handleZoomOut}>-</button>
           <button className="canva-button" alt="Save Diagram" title="Save Diagram" onClick={handleXMLSaveOnClick}>Save</button>
           <button className="canva-button" alt="New Diagram" title="New Diagram" onClick={openDiagram}>New</button>
           <ImportDiagram onFileSelect={handleFileSelect} />
         </div>
       </div>
       <div id="canvas-wrapper">
-        <div id="canvas" style={{ width: '100%', height: height }} ></div>
+        <div id="canvas" style={{ width: '90%', height: '100%' }} ></div>
       </div>
       <div className="d-flex align-items-center">
         {popupSaveOpen && (
