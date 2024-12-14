@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Collapse, Nav, NavItem, Navbar } from "reactstrap";
+import { Button, Collapse, Nav, NavItem, Navbar, Tooltip } from "reactstrap";
 import { UserContext } from '../../src/Usercontext';
 import UXLogo from "../assets/images/logos/Act2StateBorder.png";
+import 'react-tooltip/dist/react-tooltip.css'
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,6 +12,10 @@ const Header = () => {
   const { setUser_id, setOrg_id } = useContext(UserContext);
   const { user_id } = useContext(UserContext);
   const navigate = useNavigate();
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+
+  
+  const toggleTooltip = () => setTooltipOpen(!tooltipOpen);
 
   const handleLogin = async () => {
     try {
@@ -81,6 +86,29 @@ const Header = () => {
             }}
           >
             Logout
+          </Link>
+        </NavItem>
+      </Nav>
+      <Nav id="faq-nav-item" className="ms-auto d-flex align-items-center" navbar>
+        <NavItem>
+          <Link
+            to="/faq"
+            className="nav-link d-flex align-items-center"
+            style={{
+              height: "100%",
+              justifyContent: "center",
+              textAlign: "center",
+            }}
+          >
+            <i className="bi bi-question-circle fs-2"></i>
+            <Tooltip
+              placement="bottom"
+              isOpen={tooltipOpen}
+              target="faq-nav-item"
+              toggle={toggleTooltip}
+            >
+              Frequently Asked Questions
+            </Tooltip>
           </Link>
         </NavItem>
       </Nav>

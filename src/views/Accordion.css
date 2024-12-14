@@ -1,0 +1,70 @@
+/* Accordion.css */
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  background-color: #bdd6d3;
+  margin: 0;
+  padding: 0;
+}
+.main-title {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-family: "Abril Fatface", cursive;
+  color: #2e8074;
+}
+.wrapper {
+  max-width: 600px;
+  margin: auto;
+  font-family: "Source Sans Pro", sans-serif;
+}
+.item {
+  margin-bottom: 10px;
+}
+.title {
+  padding: 10px 20px;
+  border: 1px solid #6482AD;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  color: #6482AD;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+}
+.title.active {
+  background-color: #6482AD;
+  color: #fff;
+}
+.title::after {
+  content: "▼";
+  transition: transform 0.3s;
+}
+.title.active::after {
+  transform: rotate(180deg);
+}
+.content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  padding: 0 20px;
+  color: black;
+  line-height: 1.6;
+  border: 1px solid #6482AD;
+  border-width: 0 1px;
+  z-index: -1; /* Ensure that content is below other elements */
+}
+.content.show {
+  max-height: 1000px; /* Adjust based on content size */
+  opacity: 1;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}

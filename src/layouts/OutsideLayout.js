@@ -11,7 +11,7 @@ const OutsideLayout = () => {
         padding: 0,
         height: '100vh',
         width: '100vw',
-        overflow: 'hidden',
+        overflow: 'visible',
       }}
     >
       <div

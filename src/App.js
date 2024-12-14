@@ -14,6 +14,7 @@ import { UserContext } from "./Usercontext.js";
 import GenerateResult from "./assets/UtilityComponents/GenerateResult.js";
 import Result from "./views/Result.js";
 import Registration from "./views/Registration.js";
+import FAQ from "./views/Faq.js";
 
 const App = () => {
   // const routing = useRoutes(Themeroutes);
@@ -36,6 +37,7 @@ const App = () => {
             <Route element={<OutsideLayout />}>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Registration />} />
+              <Route path="/faq" element={<FAQ />} />
             </Route>
             
             {/* Layout for routes that require login */}
