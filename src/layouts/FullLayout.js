@@ -15,7 +15,7 @@ import classNames from "classnames";
 const FullLayout = () => {
   const [isDashboardVisible, setIsDashboardVisible] = useState(false);
   const rotation = isDashboardVisible ? 180 : 0;
-  const [code, setCode] = useState(`@startuml\nAlice -> Bob: Hello!\n@enduml`);
+  const [script, setCode] = useState(`@startuml\nAlice -> Bob: Hello!\n@enduml`);
   const [imageUrl, setImageUrl] = useState('');
   const bpmnRef = useRef(null);
   const [generateInfo, setgenerateInfo] = useState(null);
@@ -93,7 +93,7 @@ const FullLayout = () => {
   };
 
   const handleUpdateImageClick = () => {
-    updateImage(code);
+    updateImage(script);
   };
 
   const toggleDashboard = () => {
@@ -104,7 +104,7 @@ const FullLayout = () => {
     try {
       const saveData = {
         user_id: user_id, 
-        imageUrl: imageUrl,
+        script: script,
         title: wireframeTitle,
       };
       console.log('Saving data:', saveData);
@@ -187,12 +187,22 @@ const FullLayout = () => {
               <div>
                 <p className="title-style">Step 2: Activity Diagram to State Diagram UML Script</p>
               </div>
+              <div>
+                <input 
+                  type="text" 
+                  placeholder="Enter title" 
+                  value={wireframeTitle}
+                  onChange={(e) => setWireframeTitle(e.target.value)} 
+                  className="input"
+                  style={{ marginBottom: "10px" }}
+                />
+              </div>
               <div className="monaco-container">
                 <MonacoEditor
                   height="250px"
                   width="100%"
                   defaultLanguage="plaintext"
-                  value={code}
+                  value={script}
                   onChange={handleEditorChange}
                   options={{ fontSize: 14, minimap: { enabled: false } }}
                 />
@@ -204,33 +214,26 @@ const FullLayout = () => {
                   disabled={generating}>
                   {buttonContent}
                 </button>
-                <button className="generate-button" onClick={handleUpdateImageClick}>
-                  Update Image
+                <button className="generate-button" onClick={handleSaveWireframe}>
+                  Save Script
                 </button>
+                
               </div>
               <div>
                 <p className="title-style">Step 3: Generate State Diagram Image</p>
               </div>
-              <div>
-                <input 
-                  type="text" 
-                  placeholder="Enter wireframe title" 
-                  value={wireframeTitle}
-                  onChange={(e) => setWireframeTitle(e.target.value)} 
-                  className="input"
-                />
-              </div>
+              
               {imageUrl ? (
                 <img src={imageUrl} alt="Generated State Diagram" style={styles.image} />
               ) : (
                 <p style={styles.loadingText}>Loading diagram...</p>
               )}
+
+                <button className="generate-button" onClick={handleUpdateImageClick}>
+                  Update Image
+                </button>
             </div>
-
-
           </div>
-
-
         </div>
       </div>
     </main>
