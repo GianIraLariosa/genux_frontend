@@ -225,14 +225,6 @@ const FullLayout = () => {
               ) : (
                 <p style={styles.loadingText}>Loading diagram...</p>
               )}
-              <div>
-                <button onClick={handleSaveLocal} className="generate-button">
-                  Save Locally
-                </button>
-                <button onClick={handleSaveWireframe} className="generate-button">
-                  Save UX
-                </button>
-              </div>
             </div>
 
 

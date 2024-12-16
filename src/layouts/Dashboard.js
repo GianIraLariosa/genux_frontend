@@ -173,7 +173,7 @@ const Dashboard = forwardRef ((props, ref) => {
           )}
         </ul>
 
-        <h3>Wireframes</h3>
+        <h3>State Diagrams</h3>
         <ul className="dashboard-list" style={listStyle}>
           {wireframes.length > 0 ? (
             wireframes.map((wireframe, index) => (
