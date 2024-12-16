@@ -197,7 +197,7 @@ const Dashboard = forwardRef ((props, ref) => {
 
       {popupOpen && selectedWireframe && (
         <WireframePopup
-          imageUrl={selectedWireframe.imageUrl}
+          script={selectedWireframe.script}
           title={selectedWireframe.title}
           onClose={() => setPopupOpen(false)}
         />
