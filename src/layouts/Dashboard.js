@@ -13,6 +13,8 @@ const Dashboard = forwardRef ((props, ref) => {
   const [selectedWireframe, setSelectedWireframe] = useState(null);
   const { user_id } = useContext(UserContext);
   const [popupOpen, setPopupOpen] = useState(false);
+  const { setCode } = props;
+  const { updateImage } = props;
   const [showTooltip, setShowTooltip] = useState(false);
 
   const fetchDiagrams = () => {
@@ -60,6 +62,7 @@ const Dashboard = forwardRef ((props, ref) => {
 
   const handleWireframeClick = (wireframe) => {
     setSelectedWireframe(wireframe);
+    setCode(wireframe.script);
     setPopupOpen(true);
   };
 
@@ -190,7 +193,7 @@ const Dashboard = forwardRef ((props, ref) => {
               </li>
             ))
           ) : (
-            <li>No saved wireframes</li>
+            <li>No saved State Diagrams</li>
           )}
         </ul>
       </div>

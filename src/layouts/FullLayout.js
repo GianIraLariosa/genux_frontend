@@ -61,6 +61,14 @@ const FullLayout = () => {
     };
   }, [generating]);
 
+  // New useEffect to listen for changes to `code`
+  useEffect(() => {
+      if (script) {
+        // Ensure code is updated before calling updateImage
+        handleUpdateImageClick();
+      }
+  }, [script]);  // This listens for changes to `code`
+
 
   const generateUX_button = async () => {
     if (!generating) {
@@ -172,7 +180,7 @@ const FullLayout = () => {
             />
             {isDashboardVisible && (
               <aside className="sidebarArea shadow" id="sidebarArea">
-                <Dashboard ref={dashboardRef}/>
+                <Dashboard ref={dashboardRef} setCode={setCode}/>
               </aside>
             )}
           </div>
